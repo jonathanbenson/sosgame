@@ -7,20 +7,20 @@ namespace SOSTest
     public class ExampleTest
     {
         [TestMethod]
-        public void Test_getTrue()
+        public void TestGetTrue()
         {
             Example example = new Example();
 
-            Assert.IsTrue(example.getTrue());
+            Assert.IsTrue(example.GetTrue());
 
         }
 
         [TestMethod]
-        public void test_getFalse()
+        public void TestGetFalse()
         {
             Example example = new Example();
 
-            Assert.IsFalse(example.getFalse());
+            Assert.IsFalse(example.GetFalse());
         }
     }
 }

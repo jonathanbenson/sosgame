@@ -2,12 +2,12 @@
 {
     public class Example
     {
-        public bool getTrue()
+        public bool GetTrue()
         {
             return true;
         }
 
-        public bool getFalse()
+        public bool GetFalse()
         {
             return false;
         }
