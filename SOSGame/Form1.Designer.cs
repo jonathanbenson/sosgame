@@ -29,36 +29,36 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this._topGroupBox = new System.Windows.Forms.GroupBox();
+            this._boardSizeLabel = new System.Windows.Forms.Label();
+            this._boardSizeNum = new System.Windows.Forms.NumericUpDown();
+            this._generalGameRadio = new System.Windows.Forms.RadioButton();
+            this._simpleGameRadio = new System.Windows.Forms.RadioButton();
+            this._recordGameCheckBox = new System.Windows.Forms.CheckBox();
+            this._currentTurnLabel = new System.Windows.Forms.Label();
+            this._currentTurn = new System.Windows.Forms.Label();
+            this._newGameButton = new System.Windows.Forms.Button();
+            this._replayButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this._bluePlayerGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this._bluePlayerSRadio = new System.Windows.Forms.RadioButton();
+            this._bluePlayerORadio = new System.Windows.Forms.RadioButton();
+            this._bluePlayerHumanRadio = new System.Windows.Forms.RadioButton();
+            this._bluePlayerComputerRadio = new System.Windows.Forms.RadioButton();
+            this._redPlayerGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.radioButton11 = new System.Windows.Forms.RadioButton();
-            this.radioButton12 = new System.Windows.Forms.RadioButton();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this._redPlayerSRadio = new System.Windows.Forms.RadioButton();
+            this._redPlayerORadio = new System.Windows.Forms.RadioButton();
+            this._redPlayerHumanRadio = new System.Windows.Forms.RadioButton();
+            this._redPlayerComputerRadio = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this._topGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._boardSizeNum)).BeginInit();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this._bluePlayerGroupBox.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this._redPlayerGroupBox.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -72,265 +72,265 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             // 
-            // groupBox1
+            // _topGroupBox
             // 
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(680, 46);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "SOS Game";
+            this._topGroupBox.Controls.Add(this._boardSizeLabel);
+            this._topGroupBox.Controls.Add(this._boardSizeNum);
+            this._topGroupBox.Controls.Add(this._generalGameRadio);
+            this._topGroupBox.Controls.Add(this._simpleGameRadio);
+            this._topGroupBox.Location = new System.Drawing.Point(12, 12);
+            this._topGroupBox.Name = "_topGroupBox";
+            this._topGroupBox.Size = new System.Drawing.Size(680, 46);
+            this._topGroupBox.TabIndex = 0;
+            this._topGroupBox.TabStop = false;
+            this._topGroupBox.Text = "SOS Game";
             // 
-            // label2
+            // _boardSizeLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(525, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 15);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Board Size";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this._boardSizeLabel.AutoSize = true;
+            this._boardSizeLabel.Location = new System.Drawing.Point(525, 19);
+            this._boardSizeLabel.Name = "_boardSizeLabel";
+            this._boardSizeLabel.Size = new System.Drawing.Size(61, 15);
+            this._boardSizeLabel.TabIndex = 4;
+            this._boardSizeLabel.Text = "Board Size";
+            this._boardSizeLabel.Click += new System.EventHandler(this.label2_Click);
             // 
-            // numericUpDown1
+            // _boardSizeNum
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(592, 17);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this._boardSizeNum.Location = new System.Drawing.Point(592, 17);
+            this._boardSizeNum.Maximum = new decimal(new int[] {
             32,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this._boardSizeNum.Minimum = new decimal(new int[] {
             8,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(82, 23);
-            this.numericUpDown1.TabIndex = 3;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this._boardSizeNum.Name = "_boardSizeNum";
+            this._boardSizeNum.Size = new System.Drawing.Size(82, 23);
+            this._boardSizeNum.TabIndex = 3;
+            this._boardSizeNum.Value = new decimal(new int[] {
             8,
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this._boardSizeNum.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // radioButton2
+            // _generalGameRadio
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(107, 21);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(99, 19);
-            this.radioButton2.TabIndex = 2;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "General Game";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this._generalGameRadio.AutoSize = true;
+            this._generalGameRadio.Location = new System.Drawing.Point(107, 21);
+            this._generalGameRadio.Name = "_generalGameRadio";
+            this._generalGameRadio.Size = new System.Drawing.Size(99, 19);
+            this._generalGameRadio.TabIndex = 2;
+            this._generalGameRadio.TabStop = true;
+            this._generalGameRadio.Text = "General Game";
+            this._generalGameRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // _simpleGameRadio
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 21);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(95, 19);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Simple Game";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this._simpleGameRadio.AutoSize = true;
+            this._simpleGameRadio.Location = new System.Drawing.Point(6, 21);
+            this._simpleGameRadio.Name = "_simpleGameRadio";
+            this._simpleGameRadio.Size = new System.Drawing.Size(95, 19);
+            this._simpleGameRadio.TabIndex = 1;
+            this._simpleGameRadio.TabStop = true;
+            this._simpleGameRadio.Text = "Simple Game";
+            this._simpleGameRadio.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // _recordGameCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 25);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(97, 19);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Record Game";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this._recordGameCheckBox.AutoSize = true;
+            this._recordGameCheckBox.Location = new System.Drawing.Point(6, 25);
+            this._recordGameCheckBox.Name = "_recordGameCheckBox";
+            this._recordGameCheckBox.Size = new System.Drawing.Size(97, 19);
+            this._recordGameCheckBox.TabIndex = 5;
+            this._recordGameCheckBox.Text = "Record Game";
+            this._recordGameCheckBox.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // _currentTurnLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(284, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 15);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Current turn:";
+            this._currentTurnLabel.AutoSize = true;
+            this._currentTurnLabel.Location = new System.Drawing.Point(284, 26);
+            this._currentTurnLabel.Name = "_currentTurnLabel";
+            this._currentTurnLabel.Size = new System.Drawing.Size(75, 15);
+            this._currentTurnLabel.TabIndex = 1;
+            this._currentTurnLabel.Text = "Current turn:";
             // 
-            // label4
+            // _currentTurn
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label4.Location = new System.Drawing.Point(365, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 15);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "blue";
+            this._currentTurn.AutoSize = true;
+            this._currentTurn.ForeColor = System.Drawing.Color.DodgerBlue;
+            this._currentTurn.Location = new System.Drawing.Point(365, 26);
+            this._currentTurn.Name = "_currentTurn";
+            this._currentTurn.Size = new System.Drawing.Size(30, 15);
+            this._currentTurn.TabIndex = 2;
+            this._currentTurn.Text = "blue";
             // 
-            // button1
+            // _newGameButton
             // 
-            this.button1.Location = new System.Drawing.Point(599, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "New Game";
-            this.button1.UseVisualStyleBackColor = true;
+            this._newGameButton.Location = new System.Drawing.Point(599, 22);
+            this._newGameButton.Name = "_newGameButton";
+            this._newGameButton.Size = new System.Drawing.Size(75, 23);
+            this._newGameButton.TabIndex = 3;
+            this._newGameButton.Text = "New Game";
+            this._newGameButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // _replayButton
             // 
-            this.button2.Location = new System.Drawing.Point(519, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Replay";
-            this.button2.UseVisualStyleBackColor = true;
+            this._replayButton.Location = new System.Drawing.Point(519, 22);
+            this._replayButton.Name = "_replayButton";
+            this._replayButton.Size = new System.Drawing.Size(75, 23);
+            this._replayButton.TabIndex = 4;
+            this._replayButton.Text = "Replay";
+            this._replayButton.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this._recordGameCheckBox);
+            this.groupBox2.Controls.Add(this._currentTurn);
+            this.groupBox2.Controls.Add(this._replayButton);
+            this.groupBox2.Controls.Add(this._currentTurnLabel);
+            this.groupBox2.Controls.Add(this._newGameButton);
             this.groupBox2.Location = new System.Drawing.Point(12, 375);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(680, 54);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             // 
-            // groupBox3
+            // _bluePlayerGroupBox
             // 
-            this.groupBox3.Controls.Add(this.groupBox5);
-            this.groupBox3.Controls.Add(this.radioButton4);
-            this.groupBox3.Controls.Add(this.radioButton3);
-            this.groupBox3.Location = new System.Drawing.Point(12, 64);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(194, 305);
-            this.groupBox3.TabIndex = 8;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Blue Player";
+            this._bluePlayerGroupBox.Controls.Add(this.groupBox5);
+            this._bluePlayerGroupBox.Controls.Add(this._bluePlayerHumanRadio);
+            this._bluePlayerGroupBox.Controls.Add(this._bluePlayerComputerRadio);
+            this._bluePlayerGroupBox.Location = new System.Drawing.Point(12, 64);
+            this._bluePlayerGroupBox.Name = "_bluePlayerGroupBox";
+            this._bluePlayerGroupBox.Size = new System.Drawing.Size(194, 305);
+            this._bluePlayerGroupBox.TabIndex = 8;
+            this._bluePlayerGroupBox.TabStop = false;
+            this._bluePlayerGroupBox.Text = "Blue Player";
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.radioButton5);
-            this.groupBox5.Controls.Add(this.radioButton6);
+            this.groupBox5.Controls.Add(this._bluePlayerSRadio);
+            this.groupBox5.Controls.Add(this._bluePlayerORadio);
             this.groupBox5.Location = new System.Drawing.Point(6, 72);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(182, 65);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             // 
-            // radioButton5
+            // _bluePlayerSRadio
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(17, 13);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(31, 19);
-            this.radioButton5.TabIndex = 7;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "S";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this._bluePlayerSRadio.AutoSize = true;
+            this._bluePlayerSRadio.Location = new System.Drawing.Point(17, 13);
+            this._bluePlayerSRadio.Name = "_bluePlayerSRadio";
+            this._bluePlayerSRadio.Size = new System.Drawing.Size(31, 19);
+            this._bluePlayerSRadio.TabIndex = 7;
+            this._bluePlayerSRadio.TabStop = true;
+            this._bluePlayerSRadio.Text = "S";
+            this._bluePlayerSRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton6
+            // _bluePlayerORadio
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(17, 38);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(34, 19);
-            this.radioButton6.TabIndex = 8;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "O";
-            this.radioButton6.UseVisualStyleBackColor = true;
+            this._bluePlayerORadio.AutoSize = true;
+            this._bluePlayerORadio.Location = new System.Drawing.Point(17, 38);
+            this._bluePlayerORadio.Name = "_bluePlayerORadio";
+            this._bluePlayerORadio.Size = new System.Drawing.Size(34, 19);
+            this._bluePlayerORadio.TabIndex = 8;
+            this._bluePlayerORadio.TabStop = true;
+            this._bluePlayerORadio.Text = "O";
+            this._bluePlayerORadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // _bluePlayerHumanRadio
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(6, 47);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(65, 19);
-            this.radioButton4.TabIndex = 6;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Human";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this._bluePlayerHumanRadio.AutoSize = true;
+            this._bluePlayerHumanRadio.Location = new System.Drawing.Point(6, 47);
+            this._bluePlayerHumanRadio.Name = "_bluePlayerHumanRadio";
+            this._bluePlayerHumanRadio.Size = new System.Drawing.Size(65, 19);
+            this._bluePlayerHumanRadio.TabIndex = 6;
+            this._bluePlayerHumanRadio.TabStop = true;
+            this._bluePlayerHumanRadio.Text = "Human";
+            this._bluePlayerHumanRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // _bluePlayerComputerRadio
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 22);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(79, 19);
-            this.radioButton3.TabIndex = 5;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Computer";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this._bluePlayerComputerRadio.AutoSize = true;
+            this._bluePlayerComputerRadio.Location = new System.Drawing.Point(6, 22);
+            this._bluePlayerComputerRadio.Name = "_bluePlayerComputerRadio";
+            this._bluePlayerComputerRadio.Size = new System.Drawing.Size(79, 19);
+            this._bluePlayerComputerRadio.TabIndex = 5;
+            this._bluePlayerComputerRadio.TabStop = true;
+            this._bluePlayerComputerRadio.Text = "Computer";
+            this._bluePlayerComputerRadio.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
+            // _redPlayerGroupBox
             // 
-            this.groupBox4.Controls.Add(this.groupBox6);
-            this.groupBox4.Controls.Add(this.radioButton9);
-            this.groupBox4.Controls.Add(this.radioButton10);
-            this.groupBox4.Location = new System.Drawing.Point(518, 64);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(174, 305);
-            this.groupBox4.TabIndex = 9;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Red Player";
+            this._redPlayerGroupBox.Controls.Add(this.groupBox6);
+            this._redPlayerGroupBox.Controls.Add(this._redPlayerHumanRadio);
+            this._redPlayerGroupBox.Controls.Add(this._redPlayerComputerRadio);
+            this._redPlayerGroupBox.Location = new System.Drawing.Point(518, 64);
+            this._redPlayerGroupBox.Name = "_redPlayerGroupBox";
+            this._redPlayerGroupBox.Size = new System.Drawing.Size(174, 305);
+            this._redPlayerGroupBox.TabIndex = 9;
+            this._redPlayerGroupBox.TabStop = false;
+            this._redPlayerGroupBox.Text = "Red Player";
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.radioButton11);
-            this.groupBox6.Controls.Add(this.radioButton12);
+            this.groupBox6.Controls.Add(this._redPlayerSRadio);
+            this.groupBox6.Controls.Add(this._redPlayerORadio);
             this.groupBox6.Location = new System.Drawing.Point(6, 72);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(162, 65);
             this.groupBox6.TabIndex = 10;
             this.groupBox6.TabStop = false;
             // 
-            // radioButton11
+            // _redPlayerSRadio
             // 
-            this.radioButton11.AutoSize = true;
-            this.radioButton11.Location = new System.Drawing.Point(17, 13);
-            this.radioButton11.Name = "radioButton11";
-            this.radioButton11.Size = new System.Drawing.Size(31, 19);
-            this.radioButton11.TabIndex = 7;
-            this.radioButton11.TabStop = true;
-            this.radioButton11.Text = "S";
-            this.radioButton11.UseVisualStyleBackColor = true;
+            this._redPlayerSRadio.AutoSize = true;
+            this._redPlayerSRadio.Location = new System.Drawing.Point(17, 13);
+            this._redPlayerSRadio.Name = "_redPlayerSRadio";
+            this._redPlayerSRadio.Size = new System.Drawing.Size(31, 19);
+            this._redPlayerSRadio.TabIndex = 7;
+            this._redPlayerSRadio.TabStop = true;
+            this._redPlayerSRadio.Text = "S";
+            this._redPlayerSRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton12
+            // _redPlayerORadio
             // 
-            this.radioButton12.AutoSize = true;
-            this.radioButton12.Location = new System.Drawing.Point(17, 38);
-            this.radioButton12.Name = "radioButton12";
-            this.radioButton12.Size = new System.Drawing.Size(34, 19);
-            this.radioButton12.TabIndex = 8;
-            this.radioButton12.TabStop = true;
-            this.radioButton12.Text = "O";
-            this.radioButton12.UseVisualStyleBackColor = true;
+            this._redPlayerORadio.AutoSize = true;
+            this._redPlayerORadio.Location = new System.Drawing.Point(17, 38);
+            this._redPlayerORadio.Name = "_redPlayerORadio";
+            this._redPlayerORadio.Size = new System.Drawing.Size(34, 19);
+            this._redPlayerORadio.TabIndex = 8;
+            this._redPlayerORadio.TabStop = true;
+            this._redPlayerORadio.Text = "O";
+            this._redPlayerORadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton9
+            // _redPlayerHumanRadio
             // 
-            this.radioButton9.AutoSize = true;
-            this.radioButton9.Location = new System.Drawing.Point(6, 47);
-            this.radioButton9.Name = "radioButton9";
-            this.radioButton9.Size = new System.Drawing.Size(65, 19);
-            this.radioButton9.TabIndex = 6;
-            this.radioButton9.TabStop = true;
-            this.radioButton9.Text = "Human";
-            this.radioButton9.UseVisualStyleBackColor = true;
+            this._redPlayerHumanRadio.AutoSize = true;
+            this._redPlayerHumanRadio.Location = new System.Drawing.Point(6, 47);
+            this._redPlayerHumanRadio.Name = "_redPlayerHumanRadio";
+            this._redPlayerHumanRadio.Size = new System.Drawing.Size(65, 19);
+            this._redPlayerHumanRadio.TabIndex = 6;
+            this._redPlayerHumanRadio.TabStop = true;
+            this._redPlayerHumanRadio.Text = "Human";
+            this._redPlayerHumanRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton10
+            // _redPlayerComputerRadio
             // 
-            this.radioButton10.AutoSize = true;
-            this.radioButton10.Location = new System.Drawing.Point(6, 22);
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(79, 19);
-            this.radioButton10.TabIndex = 5;
-            this.radioButton10.TabStop = true;
-            this.radioButton10.Text = "Computer";
-            this.radioButton10.UseVisualStyleBackColor = true;
+            this._redPlayerComputerRadio.AutoSize = true;
+            this._redPlayerComputerRadio.Location = new System.Drawing.Point(6, 22);
+            this._redPlayerComputerRadio.Name = "_redPlayerComputerRadio";
+            this._redPlayerComputerRadio.Size = new System.Drawing.Size(79, 19);
+            this._redPlayerComputerRadio.TabIndex = 5;
+            this._redPlayerComputerRadio.TabStop = true;
+            this._redPlayerComputerRadio.Text = "Computer";
+            this._redPlayerComputerRadio.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
@@ -345,24 +345,24 @@
             // 
             this.ClientSize = new System.Drawing.Size(704, 441);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this._redPlayerGroupBox);
+            this.Controls.Add(this._bluePlayerGroupBox);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this._topGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "SOS Game";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this._topGroupBox.ResumeLayout(false);
+            this._topGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._boardSizeNum)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this._bluePlayerGroupBox.ResumeLayout(false);
+            this._bluePlayerGroupBox.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this._redPlayerGroupBox.ResumeLayout(false);
+            this._redPlayerGroupBox.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -373,29 +373,29 @@
         #endregion
 
         private Label label1;
-        private GroupBox groupBox1;
-        private Label label2;
-        private NumericUpDown numericUpDown1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private CheckBox checkBox1;
-        private Label label3;
-        private Label label4;
-        private Button button1;
-        private Button button2;
+        private GroupBox _topGroupBox;
+        private Label _boardSizeLabel;
+        private NumericUpDown _boardSizeNum;
+        private RadioButton _generalGameRadio;
+        private RadioButton _simpleGameRadio;
+        private CheckBox _recordGameCheckBox;
+        private Label _currentTurnLabel;
+        private Label _currentTurn;
+        private Button _newGameButton;
+        private Button _replayButton;
         private GroupBox groupBox2;
-        private GroupBox groupBox3;
-        private RadioButton radioButton6;
-        private RadioButton radioButton5;
-        private RadioButton radioButton4;
-        private RadioButton radioButton3;
-        private GroupBox groupBox4;
-        private RadioButton radioButton9;
-        private RadioButton radioButton10;
+        private GroupBox _bluePlayerGroupBox;
+        private RadioButton _bluePlayerORadio;
+        private RadioButton _bluePlayerSRadio;
+        private RadioButton _bluePlayerHumanRadio;
+        private RadioButton _bluePlayerComputerRadio;
+        private GroupBox _redPlayerGroupBox;
+        private RadioButton _redPlayerHumanRadio;
+        private RadioButton _redPlayerComputerRadio;
         private GroupBox groupBox5;
         private GroupBox groupBox6;
-        private RadioButton radioButton11;
-        private RadioButton radioButton12;
+        private RadioButton _redPlayerSRadio;
+        private RadioButton _redPlayerORadio;
         private PictureBox pictureBox1;
     }
 }
