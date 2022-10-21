@@ -17,7 +17,15 @@ namespace SOSGame
             this.boardCanvas = boardCanvas;
             this.graphics = graphics;
             this.boardSizeNum = boardSizeNum;
-            
+        }
+
+        public static int Rasterize(int index, int cellSizePixels, int k)
+        {
+            // index = row or column number
+            // cellSizePixels = number of pixels of a cell square dimensions
+            // k = number of total pixels of the length of the game board
+
+            return (int)((((float)index * (float)cellSizePixels) / (float)k) * k);
         }
 
         private void DrawLetter(char letter, float x, float y, Color color)
@@ -49,8 +57,8 @@ namespace SOSGame
             int cellSizePixels = k / boardSize;
 
             // x and y coordinates of the point that the S will center on
-            int x = (int)((((float)col * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
-            int y = (int)((((float)row * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int x = Rasterize(col, cellSizePixels, k) + (int)(.5f * cellSizePixels);
+            int y = Rasterize(row, cellSizePixels, k) + (int)(.5f * cellSizePixels);
 
             // draw the S
             DrawLetter('S', x, y, isRed ? Color.Red : Color.Blue);
@@ -66,8 +74,8 @@ namespace SOSGame
             int cellSizePixels = k / boardSize;
 
             // x and y coordinates of the point that the O will center on
-            int x = (int)((((float)col * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
-            int y = (int)((((float)row * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int x = Rasterize(col, cellSizePixels, k) + (int)(.5f * cellSizePixels);
+            int y = Rasterize(row, cellSizePixels, k) + (int)(.5f * cellSizePixels);
 
             DrawLetter('O', x, y, isRed ? Color.Red : Color.Blue);
         }
@@ -82,12 +90,12 @@ namespace SOSGame
             int cellSizePixels = k / boardSize;
 
             // x and y coordinates of the start point of the line
-            int x1 = (int)((((float)startCol * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
-            int y1 = (int)((((float)startRow * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int x1 = Rasterize(startCol, cellSizePixels, k) + (int)(.5f * cellSizePixels);
+            int y1 = Rasterize(startRow, cellSizePixels, k) + (int)(.5f * cellSizePixels);
 
             // x and y coordinates of the end point of the line
-            int x2 = (int)((((float)endCol * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
-            int y2 = (int)((((float)endRow * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int x2 = Rasterize(endCol, cellSizePixels, k) + (int)(.5f * cellSizePixels);
+            int y2 = Rasterize(endRow, cellSizePixels, k) + (int)(.5f * cellSizePixels);
 
             // draw the border of the board
             Point startPoint = new Point(x1, y1);
@@ -131,7 +139,7 @@ namespace SOSGame
             // draw the lines that separate the rows and columns
             for (int i = 1; i < boardSize; i++)
             {
-                int x = (int)((((float)i * (float)cellSizePixels) / (float)k) * k);
+                int x = Rasterize(i, cellSizePixels, k);
 
                 // the points that make the lines that separate the rows
                 Point rowLineStart = new Point(0, x);

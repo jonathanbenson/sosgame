@@ -92,7 +92,6 @@
             this._boardSizeLabel.Size = new System.Drawing.Size(61, 15);
             this._boardSizeLabel.TabIndex = 4;
             this._boardSizeLabel.Text = "Board Size";
-            this._boardSizeLabel.Click += new System.EventHandler(this.label2_Click);
             // 
             // _boardSizeNum
             // 
@@ -337,6 +336,7 @@
             this.boardCanvas.Name = "boardCanvas";
             this.boardCanvas.Size = new System.Drawing.Size(300, 300);
             this.boardCanvas.TabIndex = 10;
+            this.boardCanvas.Click += new System.EventHandler(this.boardCanvas_Click);
             this.boardCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.boardCanvas_Paint);
             // 
             // Form1
