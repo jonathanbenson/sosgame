@@ -18,29 +18,86 @@ namespace SOSGame
             this.graphics = graphics;
             this.boardSizeNum = boardSizeNum;
             
-            DrawBoard();
         }
 
-        public void test()
+        private void DrawLetter(char letter, float x, float y, Color color)
         {
-            Brush brush = new SolidBrush(Color.Red);
 
-            graphics.FillRectangle(brush, new Rectangle(0, 0, 100, 100));
+            // convert the letter to a string (S or O)
+            String strToDraw = letter.ToString();
+
+            // create the font and brush for drawing
+            Font drawFont = new Font("Arial", 16);
+            SolidBrush drawBrush = new SolidBrush(color);
+
+            // make it so the letter is centered inside of a square
+            StringFormat drawFormat = new StringFormat();
+            drawFormat.LineAlignment = StringAlignment.Center;
+            drawFormat.Alignment = StringAlignment.Center;
+
+            // draw the S or O to the screen
+            graphics.DrawString(strToDraw, drawFont, drawBrush, x, y, drawFormat);
         }
 
-        public void DrawS(int row, int col)
+        public void DrawS(int row, int col, bool isRed = false)
         {
+            // obtain the board size from the board size numeric updown control
+            int boardSize = (int)boardSizeNum.Value;
 
+            // size = k, while the board has dimensions k x k
+            int k = boardCanvas.Width;
+            int cellSizePixels = k / boardSize;
+
+            // x and y coordinates of the point that the S will center on
+            int x = (int)((((float)col * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int y = (int)((((float)row * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+
+            // draw the S
+            DrawLetter('S', x, y, isRed ? Color.Red : Color.Blue);
         }
 
-        public void DrawO(int row, int col)
+        public void DrawO(int row, int col, bool isRed = false)
         {
+            // obtain the board size from the board size numeric updown control
+            int boardSize = (int)boardSizeNum.Value;
 
+            // size = k, while the board has dimensions k x k
+            int k = boardCanvas.Width;
+            int cellSizePixels = k / boardSize;
+
+            // x and y coordinates of the point that the O will center on
+            int x = (int)((((float)col * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int y = (int)((((float)row * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+
+            DrawLetter('O', x, y, isRed ? Color.Red : Color.Blue);
         }
 
-        public void DrawSOSLine(int startRow, int startCol, int endRow, int endCol)
+        public void DrawSOSLine(int startRow, int startCol, int endRow, int endCol, bool isRed = false)
         {
+            // obtain the board size from the board size numeric updown control
+            int boardSize = (int)boardSizeNum.Value;
 
+            // size = k, while the board has dimensions k x k
+            int k = boardCanvas.Width;
+            int cellSizePixels = k / boardSize;
+
+            // x and y coordinates of the start point of the line
+            int x1 = (int)((((float)startCol * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int y1 = (int)((((float)startRow * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+
+            // x and y coordinates of the end point of the line
+            int x2 = (int)((((float)endCol * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+            int y2 = (int)((((float)endRow * (float)cellSizePixels) / (float)k) * k) + (int)(.5f * cellSizePixels);
+
+            // draw the border of the board
+            Point startPoint = new Point(x1, y1);
+            Point endPoint = new Point(x2, y2);
+
+            // pen used to draw the border, as well as row and column lines
+            Pen linePen = new Pen(isRed ? Color.Red : Color.Blue, 2f);
+
+            // draw the line connecting the two squares
+            graphics.DrawLine(linePen, startPoint, endPoint);
         }
 
         public void DrawBoard()

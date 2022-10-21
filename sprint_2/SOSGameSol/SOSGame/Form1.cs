@@ -19,6 +19,8 @@ namespace SOSGame
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             boardPainter.DrawBoard();
+            boardPainter.DrawS(3, 3);
+            boardPainter.DrawSOSLine(2, 1, 4, 3);
         }
 
         private void boardCanvas_Paint(object sender, PaintEventArgs e)
