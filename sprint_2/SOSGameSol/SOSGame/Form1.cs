@@ -9,23 +9,28 @@ namespace SOSGame
 
         // Object that paints the board canvas to create the SOS game board
         BoardPainter boardPainter;
-        Board board;
+        AccessibilityManager accessibilityManager;
+        SOSEngine sosEngine;
 
         public Form1()
         {
             InitializeComponent();
 
-            board = new Board();
-            
-            Update();
+            Graphics graphics = boardCanvas.CreateGraphics();
+            boardPainter = new BoardPainter(boardCanvas, _boardSizeNum, graphics);
+
+            sosEngine = new SOSEngine();
+            accessibilityManager = new AccessibilityManager(sosEngine);
+
+            SyncSOSEngine();
         }
 
-        public void Update()
+        public void SyncSOSEngine()
         {
 
             // if the game mode selector is accessible then make the corresponding controls accessible
             // else make them inacccessible
-            if (board.IsGameModeAccessible())
+            if (accessibilityManager.IsGameModeAccessible())
             {
                 _generalGameRadio.Enabled = true;
                 _simpleGameRadio.Enabled = true;
@@ -38,7 +43,7 @@ namespace SOSGame
 
             // if the blue role selection is accessible then make the corresponding controls accesible
             // else make them inaccessible
-            if (board.IsBlueRoleAccessible())
+            if (accessibilityManager.IsBlueRoleAccessible())
             {
                 _bluePlayerComputerRadio.Enabled = true;
                 _bluePlayerHumanRadio.Enabled = true;
@@ -51,41 +56,41 @@ namespace SOSGame
 
             // if the red role selection is accessible then make the corresponding controls accesible
             // else make them inaccessible
-            if (board.IsRedRoleAccessible())
+            if (accessibilityManager.IsRedRoleAccessible())
             {
                 _redPlayerComputerRadio.Enabled = true;
                 _redPlayerHumanRadio.Enabled = true;
             }
             else
             {
-                _redPlayerComputerRadio.Enabled= false;
-                _redPlayerHumanRadio.Enabled= false;
+                _redPlayerComputerRadio.Enabled = false;
+                _redPlayerHumanRadio.Enabled = false;
             }
 
             // if the record game button is accessible then make its corresponding control accessible
             // else make it inaccessible
-            if (board.IsRecordButtonAccessible())
+            if (accessibilityManager.IsRecordButtonAccessible())
                 _recordGameCheckBox.Enabled = true;
             else
-                _recordGameCheckBox.Enabled= false;
+                _recordGameCheckBox.Enabled = false;
 
             // if the replay button is accessible then make its corresponding control accessible
             // else make it inaccessible
-            if (board.IsReplayButtonAccessible())
+            if (accessibilityManager.IsReplayButtonAccessible())
                 _replayButton.Enabled = true;
             else
-                _replayButton.Enabled= false;
+                _replayButton.Enabled = false;
 
             // if the new game button is accessible then make its corresponding control accessible
             // else make it inaccessible
-            if (board.IsNewGameButtonAccessible())
+            if (accessibilityManager.IsNewGameButtonAccessible())
                 _newGameButton.Enabled = true;
             else
-                _newGameButton.Enabled= false;
+                _newGameButton.Enabled = false;
 
             // if the board size selector is accessible then make the corresponding controls accessible
             // else make it inaccessible
-            if (board.IsBoardSizeAccessible())
+            if (accessibilityManager.IsBoardSizeAccessible())
             {
                 _boardSizeLabel.Enabled = true;
                 _boardSizeNum.Enabled = true;
@@ -98,39 +103,63 @@ namespace SOSGame
 
             // if the blue SO controls are accessible then make the corresponding controls accessible
             // else make them inaccessible
-            if (board.IsBlueSOAccessible())
+            if (accessibilityManager.IsBlueSOAccessible())
                 _blueSOGroupBox.Enabled = true;
             else
                 _blueSOGroupBox.Enabled = false;
 
             // if the red SO controls are accessible then make the corresponding controls accessible
             // else make them inaccessible
-            if (board.IsRedSOAccessible())
+            if (accessibilityManager.IsRedSOAccessible())
                 _redSOGroupBox.Enabled = true;
             else
                 _redSOGroupBox.Enabled = false;
 
             // if the quit replay button is accessible then make the corresponding control accessible
             // else make it inaccessible
-            if (board.IsQuitReplayButtonAccessible())
-                _quitReplayButton.Enabled = true;
+            if (accessibilityManager.IsQuitReplayButtonAccessible())
+                _quitReplayButton.Show();
             else
-                _quitReplayButton.Enabled = false;
+                _quitReplayButton.Hide();
+
+            if (accessibilityManager.IsBoardAccessible())
+                boardPainter.DrawBoard();
+
+            // if the current turn display is accessible then make the corresponding control accessible
+            // else make it inaccessible
+            if (accessibilityManager.IsCurrentTurnDisplayAccessible())
+            {
+                _currentTurnLabel.Show();
+                _currentTurn.Show();
+            }
+            else
+            {
+                _currentTurnLabel.Hide();
+                _currentTurn.Hide();
+            }
+
+
+            if (sosEngine.IsRedTurn())
+            {
+                _currentTurn.Text = "Red";
+                _currentTurn.ForeColor = Color.Red;
+            }
+            else
+            {
+                _currentTurn.Text = "Blue";
+                _currentTurn.ForeColor = Color.Blue;
+            }
 
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Update();
+            SyncSOSEngine();
             boardPainter.DrawBoard();
         }
 
         private void boardCanvas_Paint(object sender, PaintEventArgs e)
         {
-            Graphics graphics = boardCanvas.CreateGraphics();
-
-            boardPainter = new BoardPainter(boardCanvas, _boardSizeNum, graphics);
-
             boardPainter.DrawBoard();
         }
 
@@ -140,7 +169,21 @@ namespace SOSGame
 
             Tuple<int, int> rowCol = GetRowColOfPoint(point);
 
-            boardPainter.DrawS(rowCol.Item1, rowCol.Item2);
+            int row = rowCol.Item1;
+            int col = rowCol.Item2;
+
+            try
+            {
+                if (accessibilityManager.IsBoardAccessible())
+                    sosEngine.GetCurrentGame().GetCurrentPlayer().MakeMove(row, col);
+
+                SyncSOSEngine();
+            }
+            catch (ArgumentException exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+
         }
 
         private Tuple<int, int> GetRowColOfPoint(Point point)
@@ -165,6 +208,38 @@ namespace SOSGame
             }
 
             return Tuple.Create(-1, -1);
+        }
+
+        private void _newGameButton_Click(object sender, EventArgs e)
+        {
+            sosEngine.StartGame();
+            boardPainter.SetGame(sosEngine.GetCurrentGame());
+
+            SyncSOSEngine();
+        }
+
+        private void _bluePlayerSRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_bluePlayerSRadio.Checked)
+                sosEngine.GetCurrentGame().GetBluePlayer().SetMoveType(MoveType.S);
+        }
+
+        private void _bluePlayerORadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_bluePlayerORadio.Checked)
+                sosEngine.GetCurrentGame().GetBluePlayer().SetMoveType(MoveType.O);
+        }
+        
+        private void _redPlayerSRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_redPlayerSRadio.Checked)
+                sosEngine.GetCurrentGame().GetRedPlayer().SetMoveType(MoveType.S);
+        }
+
+        private void _redPlayerORadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_redPlayerORadio.Checked)
+                sosEngine.GetCurrentGame().GetRedPlayer().SetMoveType(MoveType.O);
         }
     }
 }

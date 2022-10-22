@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SOSLogic;
 
 namespace SOSGame
 {
@@ -11,6 +12,8 @@ namespace SOSGame
         private Panel boardCanvas;
         private NumericUpDown boardSizeNum;
         private Graphics graphics;
+
+        private Game game;
 
         public BoardPainter(Panel boardCanvas, NumericUpDown boardSizeNum, Graphics graphics)
         {
@@ -47,7 +50,7 @@ namespace SOSGame
             graphics.DrawString(strToDraw, drawFont, drawBrush, x, y, drawFormat);
         }
 
-        public void DrawS(int row, int col, bool isRed = false)
+        public void DrawS(int row, int col, Color color)
         {
             // obtain the board size from the board size numeric updown control
             int boardSize = (int)boardSizeNum.Value;
@@ -61,10 +64,10 @@ namespace SOSGame
             int y = Rasterize(row, cellSizePixels, k) + (int)(.5f * cellSizePixels);
 
             // draw the S
-            DrawLetter('S', x, y, isRed ? Color.Red : Color.Blue);
+            DrawLetter('S', x, y, color);
         }
 
-        public void DrawO(int row, int col, bool isRed = false)
+        public void DrawO(int row, int col, Color color)
         {
             // obtain the board size from the board size numeric updown control
             int boardSize = (int)boardSizeNum.Value;
@@ -77,7 +80,7 @@ namespace SOSGame
             int x = Rasterize(col, cellSizePixels, k) + (int)(.5f * cellSizePixels);
             int y = Rasterize(row, cellSizePixels, k) + (int)(.5f * cellSizePixels);
 
-            DrawLetter('O', x, y, isRed ? Color.Red : Color.Blue);
+            DrawLetter('O', x, y, color);
         }
 
         public void DrawSOSLine(int startRow, int startCol, int endRow, int endCol, bool isRed = false)
@@ -159,6 +162,28 @@ namespace SOSGame
                 lineCount++;
                    
             }
+
+            // drawing game-specific items (ex. S, O, SOS lines)
+            if (!(game is null))
+            {
+                // draw the S's and O's
+                foreach (Move move in game.GetMoves())
+                {
+                    if (move.GetMoveType() == MoveType.S)
+                    {
+                        DrawS(move.GetRow(), move.GetCol(), move.GetPlayer().GetColor());
+                    }
+                    else if (move.GetMoveType() == MoveType.O)
+                    {
+                        DrawO(move.GetRow(), move.GetCol(), move.GetPlayer().GetColor());
+                    }
+                }
+            }
+        }
+
+        public void SetGame(Game game)
+        {
+            this.game = game;
         }
 
     }

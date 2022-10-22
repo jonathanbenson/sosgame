@@ -40,6 +40,7 @@
             this._newGameButton = new System.Windows.Forms.Button();
             this._replayButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this._quitReplayButton = new System.Windows.Forms.Button();
             this._bluePlayerGroupBox = new System.Windows.Forms.GroupBox();
             this._blueSOGroupBox = new System.Windows.Forms.GroupBox();
             this._bluePlayerSRadio = new System.Windows.Forms.RadioButton();
@@ -53,7 +54,6 @@
             this._redPlayerHumanRadio = new System.Windows.Forms.RadioButton();
             this._redPlayerComputerRadio = new System.Windows.Forms.RadioButton();
             this.boardCanvas = new System.Windows.Forms.Panel();
-            this._quitReplayButton = new System.Windows.Forms.Button();
             this._topGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boardSizeNum)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -124,13 +124,13 @@
             this._generalGameRadio.Name = "_generalGameRadio";
             this._generalGameRadio.Size = new System.Drawing.Size(99, 19);
             this._generalGameRadio.TabIndex = 2;
-            this._generalGameRadio.TabStop = true;
             this._generalGameRadio.Text = "General Game";
             this._generalGameRadio.UseVisualStyleBackColor = true;
             // 
             // _simpleGameRadio
             // 
             this._simpleGameRadio.AutoSize = true;
+            this._simpleGameRadio.Checked = true;
             this._simpleGameRadio.Location = new System.Drawing.Point(6, 21);
             this._simpleGameRadio.Name = "_simpleGameRadio";
             this._simpleGameRadio.Size = new System.Drawing.Size(95, 19);
@@ -176,6 +176,7 @@
             this._newGameButton.TabIndex = 3;
             this._newGameButton.Text = "New Game";
             this._newGameButton.UseVisualStyleBackColor = true;
+            this._newGameButton.Click += new System.EventHandler(this._newGameButton_Click);
             // 
             // _replayButton
             // 
@@ -199,6 +200,15 @@
             this.groupBox2.Size = new System.Drawing.Size(680, 54);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
+            // 
+            // _quitReplayButton
+            // 
+            this._quitReplayButton.Location = new System.Drawing.Point(422, 22);
+            this._quitReplayButton.Name = "_quitReplayButton";
+            this._quitReplayButton.Size = new System.Drawing.Size(91, 23);
+            this._quitReplayButton.TabIndex = 6;
+            this._quitReplayButton.Text = "Quit Replay";
+            this._quitReplayButton.UseVisualStyleBackColor = true;
             // 
             // _bluePlayerGroupBox
             // 
@@ -225,6 +235,7 @@
             // _bluePlayerSRadio
             // 
             this._bluePlayerSRadio.AutoSize = true;
+            this._bluePlayerSRadio.Checked = true;
             this._bluePlayerSRadio.Location = new System.Drawing.Point(17, 13);
             this._bluePlayerSRadio.Name = "_bluePlayerSRadio";
             this._bluePlayerSRadio.Size = new System.Drawing.Size(31, 19);
@@ -232,6 +243,7 @@
             this._bluePlayerSRadio.TabStop = true;
             this._bluePlayerSRadio.Text = "S";
             this._bluePlayerSRadio.UseVisualStyleBackColor = true;
+            this._bluePlayerSRadio.CheckedChanged += new System.EventHandler(this._bluePlayerSRadio_CheckedChanged);
             // 
             // _bluePlayerORadio
             // 
@@ -240,13 +252,14 @@
             this._bluePlayerORadio.Name = "_bluePlayerORadio";
             this._bluePlayerORadio.Size = new System.Drawing.Size(34, 19);
             this._bluePlayerORadio.TabIndex = 8;
-            this._bluePlayerORadio.TabStop = true;
             this._bluePlayerORadio.Text = "O";
             this._bluePlayerORadio.UseVisualStyleBackColor = true;
+            this._bluePlayerORadio.CheckedChanged += new System.EventHandler(this._bluePlayerORadio_CheckedChanged);
             // 
             // _bluePlayerHumanRadio
             // 
             this._bluePlayerHumanRadio.AutoSize = true;
+            this._bluePlayerHumanRadio.Checked = true;
             this._bluePlayerHumanRadio.Location = new System.Drawing.Point(6, 47);
             this._bluePlayerHumanRadio.Name = "_bluePlayerHumanRadio";
             this._bluePlayerHumanRadio.Size = new System.Drawing.Size(65, 19);
@@ -262,7 +275,6 @@
             this._bluePlayerComputerRadio.Name = "_bluePlayerComputerRadio";
             this._bluePlayerComputerRadio.Size = new System.Drawing.Size(79, 19);
             this._bluePlayerComputerRadio.TabIndex = 5;
-            this._bluePlayerComputerRadio.TabStop = true;
             this._bluePlayerComputerRadio.Text = "Computer";
             this._bluePlayerComputerRadio.UseVisualStyleBackColor = true;
             // 
@@ -291,6 +303,7 @@
             // _redPlayerSRadio
             // 
             this._redPlayerSRadio.AutoSize = true;
+            this._redPlayerSRadio.Checked = true;
             this._redPlayerSRadio.Location = new System.Drawing.Point(17, 13);
             this._redPlayerSRadio.Name = "_redPlayerSRadio";
             this._redPlayerSRadio.Size = new System.Drawing.Size(31, 19);
@@ -298,6 +311,7 @@
             this._redPlayerSRadio.TabStop = true;
             this._redPlayerSRadio.Text = "S";
             this._redPlayerSRadio.UseVisualStyleBackColor = true;
+            this._redPlayerSRadio.CheckedChanged += new System.EventHandler(this._redPlayerSRadio_CheckedChanged);
             // 
             // _redPlayerORadio
             // 
@@ -306,13 +320,14 @@
             this._redPlayerORadio.Name = "_redPlayerORadio";
             this._redPlayerORadio.Size = new System.Drawing.Size(34, 19);
             this._redPlayerORadio.TabIndex = 8;
-            this._redPlayerORadio.TabStop = true;
             this._redPlayerORadio.Text = "O";
             this._redPlayerORadio.UseVisualStyleBackColor = true;
+            this._redPlayerORadio.CheckedChanged += new System.EventHandler(this._redPlayerORadio_CheckedChanged);
             // 
             // _redPlayerHumanRadio
             // 
             this._redPlayerHumanRadio.AutoSize = true;
+            this._redPlayerHumanRadio.Checked = true;
             this._redPlayerHumanRadio.Location = new System.Drawing.Point(6, 47);
             this._redPlayerHumanRadio.Name = "_redPlayerHumanRadio";
             this._redPlayerHumanRadio.Size = new System.Drawing.Size(65, 19);
@@ -328,7 +343,6 @@
             this._redPlayerComputerRadio.Name = "_redPlayerComputerRadio";
             this._redPlayerComputerRadio.Size = new System.Drawing.Size(79, 19);
             this._redPlayerComputerRadio.TabIndex = 5;
-            this._redPlayerComputerRadio.TabStop = true;
             this._redPlayerComputerRadio.Text = "Computer";
             this._redPlayerComputerRadio.UseVisualStyleBackColor = true;
             // 
@@ -340,15 +354,6 @@
             this.boardCanvas.TabIndex = 10;
             this.boardCanvas.Click += new System.EventHandler(this.boardCanvas_Click);
             this.boardCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.boardCanvas_Paint);
-            // 
-            // _quitReplayButton
-            // 
-            this._quitReplayButton.Location = new System.Drawing.Point(422, 22);
-            this._quitReplayButton.Name = "_quitReplayButton";
-            this._quitReplayButton.Size = new System.Drawing.Size(91, 23);
-            this._quitReplayButton.TabIndex = 6;
-            this._quitReplayButton.Text = "Quit Replay";
-            this._quitReplayButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
