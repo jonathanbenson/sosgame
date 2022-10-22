@@ -138,7 +138,8 @@ namespace SOSGame
                 _currentTurn.Hide();
             }
 
-
+            // During a game...
+            // Tell who the current player is and what their color is
             if (sosEngine.IsRedTurn())
             {
                 _currentTurn.Text = "Red";
@@ -176,6 +177,8 @@ namespace SOSGame
             {
                 if (accessibilityManager.IsBoardAccessible())
                     sosEngine.GetCurrentGame().GetCurrentPlayer().MakeMove(row, col);
+                else
+                    MessageBox.Show("Start a new game to play!");
 
                 SyncSOSEngine();
             }
