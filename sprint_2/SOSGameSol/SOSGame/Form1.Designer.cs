@@ -41,25 +41,26 @@
             this._replayButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this._bluePlayerGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this._blueSOGroupBox = new System.Windows.Forms.GroupBox();
             this._bluePlayerSRadio = new System.Windows.Forms.RadioButton();
             this._bluePlayerORadio = new System.Windows.Forms.RadioButton();
             this._bluePlayerHumanRadio = new System.Windows.Forms.RadioButton();
             this._bluePlayerComputerRadio = new System.Windows.Forms.RadioButton();
             this._redPlayerGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this._redSOGroupBox = new System.Windows.Forms.GroupBox();
             this._redPlayerSRadio = new System.Windows.Forms.RadioButton();
             this._redPlayerORadio = new System.Windows.Forms.RadioButton();
             this._redPlayerHumanRadio = new System.Windows.Forms.RadioButton();
             this._redPlayerComputerRadio = new System.Windows.Forms.RadioButton();
             this.boardCanvas = new System.Windows.Forms.Panel();
+            this._quitReplayButton = new System.Windows.Forms.Button();
             this._topGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boardSizeNum)).BeginInit();
             this.groupBox2.SuspendLayout();
             this._bluePlayerGroupBox.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this._blueSOGroupBox.SuspendLayout();
             this._redPlayerGroupBox.SuspendLayout();
-            this.groupBox6.SuspendLayout();
+            this._redSOGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -151,7 +152,7 @@
             // _currentTurnLabel
             // 
             this._currentTurnLabel.AutoSize = true;
-            this._currentTurnLabel.Location = new System.Drawing.Point(284, 26);
+            this._currentTurnLabel.Location = new System.Drawing.Point(113, 26);
             this._currentTurnLabel.Name = "_currentTurnLabel";
             this._currentTurnLabel.Size = new System.Drawing.Size(75, 15);
             this._currentTurnLabel.TabIndex = 1;
@@ -161,7 +162,7 @@
             // 
             this._currentTurn.AutoSize = true;
             this._currentTurn.ForeColor = System.Drawing.Color.DodgerBlue;
-            this._currentTurn.Location = new System.Drawing.Point(365, 26);
+            this._currentTurn.Location = new System.Drawing.Point(194, 26);
             this._currentTurn.Name = "_currentTurn";
             this._currentTurn.Size = new System.Drawing.Size(30, 15);
             this._currentTurn.TabIndex = 2;
@@ -187,6 +188,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this._quitReplayButton);
             this.groupBox2.Controls.Add(this._recordGameCheckBox);
             this.groupBox2.Controls.Add(this._currentTurn);
             this.groupBox2.Controls.Add(this._replayButton);
@@ -200,7 +202,7 @@
             // 
             // _bluePlayerGroupBox
             // 
-            this._bluePlayerGroupBox.Controls.Add(this.groupBox5);
+            this._bluePlayerGroupBox.Controls.Add(this._blueSOGroupBox);
             this._bluePlayerGroupBox.Controls.Add(this._bluePlayerHumanRadio);
             this._bluePlayerGroupBox.Controls.Add(this._bluePlayerComputerRadio);
             this._bluePlayerGroupBox.Location = new System.Drawing.Point(12, 64);
@@ -210,15 +212,15 @@
             this._bluePlayerGroupBox.TabStop = false;
             this._bluePlayerGroupBox.Text = "Blue Player";
             // 
-            // groupBox5
+            // _blueSOGroupBox
             // 
-            this.groupBox5.Controls.Add(this._bluePlayerSRadio);
-            this.groupBox5.Controls.Add(this._bluePlayerORadio);
-            this.groupBox5.Location = new System.Drawing.Point(6, 72);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(182, 65);
-            this.groupBox5.TabIndex = 9;
-            this.groupBox5.TabStop = false;
+            this._blueSOGroupBox.Controls.Add(this._bluePlayerSRadio);
+            this._blueSOGroupBox.Controls.Add(this._bluePlayerORadio);
+            this._blueSOGroupBox.Location = new System.Drawing.Point(6, 72);
+            this._blueSOGroupBox.Name = "_blueSOGroupBox";
+            this._blueSOGroupBox.Size = new System.Drawing.Size(182, 65);
+            this._blueSOGroupBox.TabIndex = 9;
+            this._blueSOGroupBox.TabStop = false;
             // 
             // _bluePlayerSRadio
             // 
@@ -266,7 +268,7 @@
             // 
             // _redPlayerGroupBox
             // 
-            this._redPlayerGroupBox.Controls.Add(this.groupBox6);
+            this._redPlayerGroupBox.Controls.Add(this._redSOGroupBox);
             this._redPlayerGroupBox.Controls.Add(this._redPlayerHumanRadio);
             this._redPlayerGroupBox.Controls.Add(this._redPlayerComputerRadio);
             this._redPlayerGroupBox.Location = new System.Drawing.Point(518, 64);
@@ -276,15 +278,15 @@
             this._redPlayerGroupBox.TabStop = false;
             this._redPlayerGroupBox.Text = "Red Player";
             // 
-            // groupBox6
+            // _redSOGroupBox
             // 
-            this.groupBox6.Controls.Add(this._redPlayerSRadio);
-            this.groupBox6.Controls.Add(this._redPlayerORadio);
-            this.groupBox6.Location = new System.Drawing.Point(6, 72);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(162, 65);
-            this.groupBox6.TabIndex = 10;
-            this.groupBox6.TabStop = false;
+            this._redSOGroupBox.Controls.Add(this._redPlayerSRadio);
+            this._redSOGroupBox.Controls.Add(this._redPlayerORadio);
+            this._redSOGroupBox.Location = new System.Drawing.Point(6, 72);
+            this._redSOGroupBox.Name = "_redSOGroupBox";
+            this._redSOGroupBox.Size = new System.Drawing.Size(162, 65);
+            this._redSOGroupBox.TabIndex = 10;
+            this._redSOGroupBox.TabStop = false;
             // 
             // _redPlayerSRadio
             // 
@@ -339,6 +341,15 @@
             this.boardCanvas.Click += new System.EventHandler(this.boardCanvas_Click);
             this.boardCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.boardCanvas_Paint);
             // 
+            // _quitReplayButton
+            // 
+            this._quitReplayButton.Location = new System.Drawing.Point(422, 22);
+            this._quitReplayButton.Name = "_quitReplayButton";
+            this._quitReplayButton.Size = new System.Drawing.Size(91, 23);
+            this._quitReplayButton.TabIndex = 6;
+            this._quitReplayButton.Text = "Quit Replay";
+            this._quitReplayButton.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(704, 441);
@@ -357,12 +368,12 @@
             this.groupBox2.PerformLayout();
             this._bluePlayerGroupBox.ResumeLayout(false);
             this._bluePlayerGroupBox.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this._blueSOGroupBox.ResumeLayout(false);
+            this._blueSOGroupBox.PerformLayout();
             this._redPlayerGroupBox.ResumeLayout(false);
             this._redPlayerGroupBox.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
+            this._redSOGroupBox.ResumeLayout(false);
+            this._redSOGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -389,10 +400,11 @@
         private GroupBox _redPlayerGroupBox;
         private RadioButton _redPlayerHumanRadio;
         private RadioButton _redPlayerComputerRadio;
-        private GroupBox groupBox5;
-        private GroupBox groupBox6;
+        private GroupBox _blueSOGroupBox;
+        private GroupBox _redSOGroupBox;
         private RadioButton _redPlayerSRadio;
         private RadioButton _redPlayerORadio;
         private Panel boardCanvas;
+        private Button _quitReplayButton;
     }
 }
