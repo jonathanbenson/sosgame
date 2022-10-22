@@ -54,6 +54,9 @@
             this._redPlayerHumanRadio = new System.Windows.Forms.RadioButton();
             this._redPlayerComputerRadio = new System.Windows.Forms.RadioButton();
             this.boardCanvas = new System.Windows.Forms.Panel();
+            this._blueScoreLabel = new System.Windows.Forms.Label();
+            this._redScoreLabel = new System.Windows.Forms.Label();
+            this._sourceCodeLink = new System.Windows.Forms.LinkLabel();
             this._topGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boardSizeNum)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -152,7 +155,7 @@
             // _currentTurnLabel
             // 
             this._currentTurnLabel.AutoSize = true;
-            this._currentTurnLabel.Location = new System.Drawing.Point(113, 26);
+            this._currentTurnLabel.Location = new System.Drawing.Point(12, 432);
             this._currentTurnLabel.Name = "_currentTurnLabel";
             this._currentTurnLabel.Size = new System.Drawing.Size(75, 15);
             this._currentTurnLabel.TabIndex = 1;
@@ -162,7 +165,7 @@
             // 
             this._currentTurn.AutoSize = true;
             this._currentTurn.ForeColor = System.Drawing.Color.DodgerBlue;
-            this._currentTurn.Location = new System.Drawing.Point(194, 26);
+            this._currentTurn.Location = new System.Drawing.Point(85, 432);
             this._currentTurn.Name = "_currentTurn";
             this._currentTurn.Size = new System.Drawing.Size(30, 15);
             this._currentTurn.TabIndex = 2;
@@ -191,9 +194,7 @@
             // 
             this.groupBox2.Controls.Add(this._quitReplayButton);
             this.groupBox2.Controls.Add(this._recordGameCheckBox);
-            this.groupBox2.Controls.Add(this._currentTurn);
             this.groupBox2.Controls.Add(this._replayButton);
-            this.groupBox2.Controls.Add(this._currentTurnLabel);
             this.groupBox2.Controls.Add(this._newGameButton);
             this.groupBox2.Location = new System.Drawing.Point(12, 375);
             this.groupBox2.Name = "groupBox2";
@@ -212,6 +213,7 @@
             // 
             // _bluePlayerGroupBox
             // 
+            this._bluePlayerGroupBox.Controls.Add(this._blueScoreLabel);
             this._bluePlayerGroupBox.Controls.Add(this._blueSOGroupBox);
             this._bluePlayerGroupBox.Controls.Add(this._bluePlayerHumanRadio);
             this._bluePlayerGroupBox.Controls.Add(this._bluePlayerComputerRadio);
@@ -280,6 +282,7 @@
             // 
             // _redPlayerGroupBox
             // 
+            this._redPlayerGroupBox.Controls.Add(this._redScoreLabel);
             this._redPlayerGroupBox.Controls.Add(this._redSOGroupBox);
             this._redPlayerGroupBox.Controls.Add(this._redPlayerHumanRadio);
             this._redPlayerGroupBox.Controls.Add(this._redPlayerComputerRadio);
@@ -355,9 +358,41 @@
             this.boardCanvas.Click += new System.EventHandler(this.boardCanvas_Click);
             this.boardCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.boardCanvas_Paint);
             // 
+            // _blueScoreLabel
+            // 
+            this._blueScoreLabel.AutoSize = true;
+            this._blueScoreLabel.Location = new System.Drawing.Point(6, 287);
+            this._blueScoreLabel.Name = "_blueScoreLabel";
+            this._blueScoreLabel.Size = new System.Drawing.Size(39, 15);
+            this._blueScoreLabel.TabIndex = 11;
+            this._blueScoreLabel.Text = "Score:";
+            // 
+            // _redScoreLabel
+            // 
+            this._redScoreLabel.AutoSize = true;
+            this._redScoreLabel.Location = new System.Drawing.Point(6, 287);
+            this._redScoreLabel.Name = "_redScoreLabel";
+            this._redScoreLabel.Size = new System.Drawing.Size(39, 15);
+            this._redScoreLabel.TabIndex = 12;
+            this._redScoreLabel.Text = "Score:";
+            // 
+            // _sourceCodeLink
+            // 
+            this._sourceCodeLink.AutoSize = true;
+            this._sourceCodeLink.Location = new System.Drawing.Point(618, 432);
+            this._sourceCodeLink.Name = "_sourceCodeLink";
+            this._sourceCodeLink.Size = new System.Drawing.Size(74, 15);
+            this._sourceCodeLink.TabIndex = 11;
+            this._sourceCodeLink.TabStop = true;
+            this._sourceCodeLink.Text = "Source Code";
+            this._sourceCodeLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._sourceCodeLink_LinkClicked);
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(704, 441);
+            this.ClientSize = new System.Drawing.Size(704, 453);
+            this.Controls.Add(this._sourceCodeLink);
+            this.Controls.Add(this._currentTurnLabel);
+            this.Controls.Add(this._currentTurn);
             this.Controls.Add(this.boardCanvas);
             this.Controls.Add(this._redPlayerGroupBox);
             this.Controls.Add(this._bluePlayerGroupBox);
@@ -380,6 +415,7 @@
             this._redSOGroupBox.ResumeLayout(false);
             this._redSOGroupBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -411,5 +447,8 @@
         private RadioButton _redPlayerORadio;
         private Panel boardCanvas;
         private Button _quitReplayButton;
+        private Label _blueScoreLabel;
+        private Label _redScoreLabel;
+        private LinkLabel _sourceCodeLink;
     }
 }

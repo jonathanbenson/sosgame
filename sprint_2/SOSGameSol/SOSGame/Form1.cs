@@ -244,5 +244,30 @@ namespace SOSGame
             if (_redPlayerORadio.Checked)
                 sosEngine.GetCurrentGame().GetRedPlayer().SetMoveType(MoveType.O);
         }
+
+        private void _sourceCodeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                OpenSourceCodeLink();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Source code link invalid.");
+            }
+        }
+
+        private void OpenSourceCodeLink()
+        {
+            _sourceCodeLink.LinkVisited = true;
+
+            var processInfo = new ProcessStartInfo("http://github.com/jonathanbenson/sosgame")
+            {
+                UseShellExecute = true,
+                Verb = "open"
+            };
+            
+            Process.Start(processInfo);
+        }
     }
 }

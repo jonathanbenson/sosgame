@@ -178,6 +178,8 @@ namespace SOSGame
                         DrawO(move.GetRow(), move.GetCol(), move.GetPlayer().GetColor());
                     }
                 }
+
+                
             }
         }
 
