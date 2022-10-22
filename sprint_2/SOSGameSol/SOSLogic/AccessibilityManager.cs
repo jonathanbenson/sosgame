@@ -21,6 +21,7 @@ namespace SOSLogic
         {
             // Determines whether or not a widget (ex. replay button) is accessible depending on the state of the application
             // The parameters a, b, c, and d encode the widget in question
+            // ...and e, f, g, h, and i below represent the state of the application
 
             /*
              * Game Mode Selection                      = 0000
@@ -34,6 +35,8 @@ namespace SOSLogic
              * Red S/O Selection                        = 1000
              * Game Board (whether a move can be made)  = 1001
              * Quit Replay Button (stop a replay)       = 1010
+             * Current Turn Display                     = 1011
+             * Score display                            = 1100
              * 
              */
 
@@ -43,7 +46,8 @@ namespace SOSLogic
             bool h = sosEngine.IsBlueComputer();
             bool i = sosEngine.IsRedComputer();
 
-            return (a && !b && c && !d && e) || (a && !b && !c && !e && f && !i) || (a && !b && d && !e && f) || (!a && b && !c && d && !e) || (!a && b && d && !e && f && !h) || (!a && !b && !e && !f) || (!a && !d && !e && !f) || (!b && c && d && !e && !f && g);
+            // Boolean function generated from the output column of the accessibility truth table
+            return (a && b && !c && !d && e) || (a && b && !c && !d && f) || (a && !b && c && e) || (a && !b && !c && !e && f && !i) || (a && !b && d && !e && f) || (!a && b && !c && d && !e) || (!a && b && d && !e && f && !h) || (!a && !b && !e && !f) || (!a && !d && !e && !f);
         }
 
         public bool IsGameModeAccessible()
@@ -106,6 +110,11 @@ namespace SOSLogic
         public bool IsCurrentTurnDisplayAccessible()
         {
             return IsAccessible(true, false, true, true);
+        }
+
+        public bool IsScoreDisplayAccessible()
+        {
+            return IsAccessible(true, true, false, false);
         }
     }
 }

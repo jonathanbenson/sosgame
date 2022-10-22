@@ -83,7 +83,7 @@ namespace SOSGame
             DrawLetter('O', x, y, color);
         }
 
-        public void DrawSOSLine(int startRow, int startCol, int endRow, int endCol, bool isRed = false)
+        public void DrawSOSLine(int startRow, int startCol, int endRow, int endCol, Color color)
         {
             // obtain the board size from the board size numeric updown control
             int boardSize = (int)boardSizeNum.Value;
@@ -105,7 +105,7 @@ namespace SOSGame
             Point endPoint = new Point(x2, y2);
 
             // pen used to draw the border, as well as row and column lines
-            Pen linePen = new Pen(isRed ? Color.Red : Color.Blue, 2f);
+            Pen linePen = new Pen(color, 2f);
 
             // draw the line connecting the two squares
             graphics.DrawLine(linePen, startPoint, endPoint);
@@ -179,7 +179,15 @@ namespace SOSGame
                     }
                 }
 
-                
+                // draw the SOS lines
+                foreach (SOSLine sosLine in game.GetSOSLines())
+                {
+                    Move s1 = sosLine.GetS1();
+                    Move s2 = sosLine.GetS2();
+                    Color color = sosLine.GetPlayer().GetColor();
+
+                    DrawSOSLine(s1.GetRow(), s1.GetCol(), s2.GetRow(), s2.GetCol(), color);
+                }
             }
         }
 

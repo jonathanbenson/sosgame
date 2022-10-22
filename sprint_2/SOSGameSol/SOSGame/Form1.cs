@@ -138,6 +138,23 @@ namespace SOSGame
                 _currentTurn.Hide();
             }
 
+            // if the score display is accessible then make the corresponding controls accessible
+            // else make them inaccessible
+            if (accessibilityManager.IsScoreDisplayAccessible())
+            {
+                _blueScoreLabel.Show();
+                _blueScore.Show();
+                _redScoreLabel.Show();
+                _redScore.Show();
+            }
+            else
+            {
+                _blueScoreLabel.Hide();
+                _blueScore.Hide();
+                _redScoreLabel.Hide();
+                _redScore.Hide();
+            }
+            
             // During a game...
             // Tell who the current player is and what their color is
             if (sosEngine.IsRedTurn())
@@ -150,6 +167,8 @@ namespace SOSGame
                 _currentTurn.Text = "Blue";
                 _currentTurn.ForeColor = Color.Blue;
             }
+
+
 
         }
 
@@ -215,7 +234,7 @@ namespace SOSGame
 
         private void _newGameButton_Click(object sender, EventArgs e)
         {
-            sosEngine.StartGame();
+            sosEngine.StartGame((int)_boardSizeNum.Value);
             boardPainter.SetGame(sosEngine.GetCurrentGame());
 
             SyncSOSEngine();
@@ -268,6 +287,11 @@ namespace SOSGame
             };
             
             Process.Start(processInfo);
+        }
+
+        private void _bluePlayerGroupBox_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

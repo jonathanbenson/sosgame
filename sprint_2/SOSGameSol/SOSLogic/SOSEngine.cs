@@ -70,9 +70,9 @@ namespace SOSLogic
                 return currentGame;
         }
 
-        public void StartGame()
+        public void StartGame(int boardSize)
         {
-            currentGame = new Game();
+            currentGame = new Game(boardSize);
         }
 
         public void EndGame()

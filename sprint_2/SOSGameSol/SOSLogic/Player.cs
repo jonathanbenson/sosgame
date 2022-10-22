@@ -20,11 +20,11 @@ namespace SOSLogic
             this.color = color;
             this.moveType = MoveType.S;
         }
-
+        
         public void MakeMove(int row, int col)
         {
             Move move = new Move(this, moveType, row, col);
-            game.AddMove(move);
+            game.MakeMove(move);
         }
 
         public Color GetColor()
