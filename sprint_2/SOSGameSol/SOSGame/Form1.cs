@@ -197,19 +197,21 @@ namespace SOSGame
             int row = rowCol.Item1;
             int col = rowCol.Item2;
 
+
             try
             {
                 if (accessibilityManager.IsBoardAccessible())
                     sosEngine.GetCurrentGame().GetCurrentPlayer().MakeMove(row, col);
                 else
                     MessageBox.Show("Start a new game to play!");
-
-                SyncSOSEngine();
             }
             catch (ArgumentException exc)
             {
                 MessageBox.Show(exc.Message);
             }
+
+            SyncSOSEngine();
+
 
         }
 
@@ -233,7 +235,7 @@ namespace SOSGame
 
                 }
             }
-
+            
             return Tuple.Create(-1, -1);
         }
 

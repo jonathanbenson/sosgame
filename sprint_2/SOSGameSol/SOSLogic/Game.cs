@@ -38,7 +38,7 @@ namespace SOSLogic
                 SwitchTurns();
             }
             else
-                throw new ArgumentException("Move is not valid");
+                throw new ArgumentException("Invalid move!");
         }
 
         public void CheckSOS(Move lastMove)
@@ -77,7 +77,7 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (IndexOutOfRangeException exc)
+                catch (ArgumentOutOfRangeException exc)
                 { }
 
 
@@ -96,7 +96,7 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (IndexOutOfRangeException exc)
+                catch (ArgumentOutOfRangeException exc)
                 { }
 
                 // positive diagonal case
@@ -114,7 +114,7 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (IndexOutOfRangeException exc)
+                catch (ArgumentOutOfRangeException exc)
                 { }
 
                 // negative diagonal case
@@ -132,19 +132,155 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (IndexOutOfRangeException exc)
+                catch (ArgumentOutOfRangeException exc)
                 { }
                 
             }
             else if (lastMove.GetMoveType() == MoveType.S)
             {
-                // vertical line case
+                // vertical line case (last move on top S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow() + 1][lastMove.GetCol()];
+                    Move? s2 = board[lastMove.GetRow() + 2][lastMove.GetCol()];
+                    
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
 
-                // horizontal line case
+                // vertical line case (last move on bottom S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow() - 1][lastMove.GetCol()];
+                    Move? s2 = board[lastMove.GetRow() - 2][lastMove.GetCol()];
 
-                // positive diagonal case
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
 
-                // negative diagonal case
+                // horizontal line case (last move on right S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow()][lastMove.GetCol() - 1];
+                    Move? s2 = board[lastMove.GetRow()][lastMove.GetCol() - 2];
+
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
+
+                // horizontal line case (last move on left S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow()][lastMove.GetCol() + 1];
+                    Move? s2 = board[lastMove.GetRow()][lastMove.GetCol() + 2];
+
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
+
+                // positive diagonal case (last move on top-right S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow() + 1][lastMove.GetCol() - 1];
+                    Move? s2 = board[lastMove.GetRow() + 2][lastMove.GetCol() - 2];
+
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
+
+                // positive diagonal case (last move on bottom-left S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow() - 1][lastMove.GetCol() + 1];
+                    Move? s2 = board[lastMove.GetRow() - 2][lastMove.GetCol() + 2];
+
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
+
+                // negative diagonal case (last move on top-left S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow() - 1][lastMove.GetCol() - 1];
+                    Move? s2 = board[lastMove.GetRow() - 2][lastMove.GetCol() - 2];
+
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
+
+                // negative diagonal case (last move on bottom-right S)
+                try
+                {
+                    Move? o = board[lastMove.GetRow() + 1][lastMove.GetCol() + 1];
+                    Move? s2 = board[lastMove.GetRow() + 2][lastMove.GetCol() + 2];
+
+                    if (!(o is null) && !(s2 is null))
+                    {
+                        if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                        {
+                            sosLines.Add(new SOSLine(lastMove.GetPlayer(), lastMove, o, s2));
+                            return;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException exc)
+                { }
             }
 
         }
