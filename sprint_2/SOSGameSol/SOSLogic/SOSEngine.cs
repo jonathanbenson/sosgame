@@ -83,7 +83,7 @@ namespace SOSLogic
                 return currentGame;
         }
 
-        public void StartGame(GameMode gameMode, int boardSize, bool isBlueComputer, bool isRedComputer)
+        public void StartGame(GameMode gameMode = GameMode.Simple, int boardSize = 8, bool isBlueComputer = false, bool isRedComputer = false)
         {
             // start a new game based on the game mode, size of the board, and on the roles of the players
 
@@ -96,6 +96,9 @@ namespace SOSLogic
                 case GameMode.General:
                     currentGame = new GeneralGame(boardSize, isBlueComputer, isRedComputer);
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException("Invalid game mode!");
             }
 
         }
@@ -108,6 +111,7 @@ namespace SOSLogic
             previousGame = currentGame;
             currentGame = null;
         }
+
 
     }
 

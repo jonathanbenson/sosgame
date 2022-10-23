@@ -16,10 +16,15 @@ namespace SOSLogic
          * If all the cells are filled and no SOS has been created, the game is a draw.
          * 
          */
-        public SimpleGame(int boardSize, bool isBlueComputer, bool isRedComputer)
+        public SimpleGame(int boardSize = 8, bool isBlueComputer = false, bool isRedComputer = false)
             : base(boardSize, isBlueComputer, isRedComputer)
         {
             
+        }
+
+        public override GameMode GetGameMode()
+        {
+            return GameMode.Simple;
         }
     }
 }

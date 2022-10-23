@@ -25,12 +25,12 @@ namespace SOSLogic
         General
     }
     
-    public class Game
+    public abstract class Game
     {
         /*
          * The Game class is the base class for the SimpleGame and GeneralGame classes.
          * 
-         * It handles the logic for the SOS game.
+         * It handles the base logic for the SOS game.
          * 
          */
         
@@ -41,10 +41,18 @@ namespace SOSLogic
         private List<Move> moves;
         private List<SOSLine> sosLines;
 
-        public Game(int boardSize, bool isBlueComputer, bool isRedComputer)
+        public Game(int boardSize = 8, bool isBlueComputer = false, bool isRedComputer = false)
         {
             // the board size is the number of rows and columns in the board
+            // ensure the board size is between the values of 8 and 12
+            if (!IsBoardSizeValid(boardSize))
+            {
+                throw new ArgumentOutOfRangeException("Invalid board size");
+            }
+
             this.boardSize = boardSize;
+
+
 
             // instantiate the blue player depending on whether it is a computer or human
             if (isBlueComputer)
@@ -83,6 +91,12 @@ namespace SOSLogic
             // to show the user an error message.
             else
                 throw new ArgumentException("Invalid move!");
+        }
+
+        private static bool IsBoardSizeValid(int boardSize)
+        {
+            // The board size is not valid if is is less than 8 or greater than 12
+            return (boardSize < 6 || boardSize > 12) ? false : true;
         }
 
         public void CheckSOS(Move lastMove)
@@ -433,5 +447,14 @@ namespace SOSLogic
             
             return sosLines;
         }
+
+        public int GetBoardSize()
+        {
+            // Getter for the board size
+
+            return boardSize;
+        }
+
+        public abstract GameMode GetGameMode();
     }
 }

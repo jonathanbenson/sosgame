@@ -19,10 +19,10 @@ namespace SOSLogic
         
         private SOSEngine sosEngine;
 
-        public AccessibilityManager(SOSEngine game)
+        public AccessibilityManager(SOSEngine sosEngine)
         {
             // The AccessibilityManager class is used by the SOSEngine class
-            this.sosEngine = game;
+            this.sosEngine = sosEngine;
         }
 
         private bool IsAccessible(bool a, bool b, bool c, bool d)

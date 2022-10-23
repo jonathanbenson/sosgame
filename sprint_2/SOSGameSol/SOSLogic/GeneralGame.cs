@@ -17,10 +17,15 @@ namespace SOSLogic
          * 
          */
         
-        public GeneralGame(int boardSize, bool isBlueComputer, bool isRedComputer)
+        public GeneralGame(int boardSize = 8, bool isBlueComputer = false, bool isRedComputer = false)
             : base(boardSize, isBlueComputer, isRedComputer)
         {
 
+        }
+
+        public override GameMode GetGameMode()
+        {
+            return GameMode.General;
         }
     }
 }
