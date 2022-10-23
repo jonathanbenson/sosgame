@@ -8,7 +8,6 @@ namespace SOSLogic
 {
     public class AccessibilityManager
     {
-        private int size;
         
         private SOSEngine sosEngine;
 

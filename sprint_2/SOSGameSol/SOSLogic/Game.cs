@@ -77,7 +77,7 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (Exception exc)
+                catch (IndexOutOfRangeException exc)
                 { }
 
 
@@ -96,7 +96,7 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (Exception exc)
+                catch (IndexOutOfRangeException exc)
                 { }
 
                 // positive diagonal case
@@ -114,7 +114,7 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (Exception exc)
+                catch (IndexOutOfRangeException exc)
                 { }
 
                 // negative diagonal case
@@ -132,7 +132,7 @@ namespace SOSLogic
                         }
                     }
                 }
-                catch (Exception exc)
+                catch (IndexOutOfRangeException exc)
                 { }
                 
             }

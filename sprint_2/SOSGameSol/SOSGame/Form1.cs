@@ -144,13 +144,18 @@ namespace SOSGame
             {
                 _blueScoreLabel.Show();
                 _blueScore.Show();
+                _blueScore.Text = sosEngine.GetCurrentGame().BlueScore().ToString();
+                
                 _redScoreLabel.Show();
                 _redScore.Show();
+                _redScore.Text = sosEngine.GetCurrentGame().RedScore().ToString();
+
             }
             else
             {
                 _blueScoreLabel.Hide();
                 _blueScore.Hide();
+                
                 _redScoreLabel.Hide();
                 _redScore.Hide();
             }
@@ -223,7 +228,7 @@ namespace SOSGame
                     int cLow = BoardPainter.Rasterize(col, cellSizePixels, k);
                     int cHigh = BoardPainter.Rasterize(col + 1, cellSizePixels, k);
 
-                    if (point.X > cLow && point.X < cHigh && point.Y > rLow && point.Y < rHigh)
+                    if (point.X >= cLow - 5 && point.X <= cHigh + 5 && point.Y > rLow - 5 && point.Y <= rHigh + 5)
                         return Tuple.Create(row, col);
 
                 }
