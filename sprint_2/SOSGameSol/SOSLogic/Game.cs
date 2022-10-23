@@ -363,6 +363,19 @@ namespace SOSLogic
 
         public bool IsMoveValid(Move move)
         {
+            // Checks if the provided move is valid or not
+
+            // The move is not valid if it is not the move's player's turn
+            if (move.GetPlayer() != currentPlayer)
+                return false;
+
+            // the move is not valid if it is not on the board (row and col index starts at 0, so -1 the board size)
+            if (move.GetRow() < 0 || move.GetCol() < 0 || move.GetRow() > boardSize - 1 || move.GetCol() > boardSize - 1)
+            {
+                return false;
+            }
+
+            // Make sure that the move does not conflict with any other move
             foreach (Move previousMove in moves)
             {
                 if (previousMove.DoesConflict(move))

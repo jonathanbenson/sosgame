@@ -50,7 +50,12 @@ namespace SOSLogic
 
         public void SetMoveType(MoveType moveType)
         {
-            this.moveType = moveType;
+            if (moveType == MoveType.S || moveType == MoveType.O)
+            {
+                this.moveType = moveType;
+            }
+            else
+                throw new ArgumentException("Invalid move type!");
         }
         
         public MoveType GetMoveType()

@@ -1,6 +1,8 @@
 ﻿using SOSLogic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +60,85 @@ namespace SOSTest
             for (int i = boardSizeLowerLimit; i <= boardSizeUpperLimit; ++i)
                 Assert.AreEqual(new SimpleGame(i).GetBoardSize(), i);
 
+        }
+
+        [TestMethod]
+        public void TestMakeMove()
+        {
+            // AC 4.1 - User makes a move on a nonempty cell
+            // ... and AC 4.2 - User makes a move outside the game board
+            // ... and AC 4.3 - User makes a move on an empty cell
+            // ... and AC 4.5 - User makes a move when it's not their turn
+            
+
+            foreach (MoveType bluePlayerMoveType in Enum.GetValues(typeof(MoveType)))
+                foreach (MoveType redPlayerMoveType in Enum.GetValues(typeof(MoveType)))
+                    for (int boardSize = boardSizeLowerLimit; boardSize <= boardSizeUpperLimit; ++boardSize)
+                    {
+                        Game game = new SimpleGame(boardSize);
+
+                        Color turn = Color.Blue;
+
+                        int moveCount = 0;
+                        
+                        for (int row = 0; row < boardSize; ++row)
+                            for (int col = 0; col < boardSize; ++col)
+                            {
+                                Player currentPlayer = game.GetCurrentPlayer();
+                                
+                                if (turn == Color.Blue)
+                                {
+                                    Assert.AreSame(currentPlayer, game.GetBluePlayer());
+
+                                    // AC 4.5
+                                    // the red player tries to make a move when its not the red players turn
+                                    Assert.ThrowsException<ArgumentException>(() => game.GetRedPlayer().MakeMove(row, col));
+
+                                    currentPlayer.SetMoveType(bluePlayerMoveType);
+                                }
+                                else
+                                {
+                                    Assert.AreSame(currentPlayer, game.GetRedPlayer());
+
+                                    // AC 4.5
+                                    // the blue player tries to make a move when its not the blue players turn
+                                    Assert.ThrowsException<ArgumentException>(() => game.GetBluePlayer().MakeMove(row, col));
+
+                                    currentPlayer.SetMoveType(redPlayerMoveType);
+                                }
+
+                                // AC 4.2
+
+                                // user makes a move outside above the game board
+                                Assert.ThrowsException<ArgumentException>(() => currentPlayer.MakeMove(row - 1000, col));
+
+                                // user makes a move outside below the game board
+                                Assert.ThrowsException<ArgumentException>(() => currentPlayer.MakeMove(row + 1000, col));
+
+                                // user makes a move outside to the left of the gameboard
+                                Assert.ThrowsException<ArgumentException>(() => currentPlayer.MakeMove(row, col - 1000));
+
+                                // user makes a move outside to the right of the gameboard
+                                Assert.ThrowsException<ArgumentException>(() => currentPlayer.MakeMove(row, col + 1000));
+
+
+                                // AC 4.3
+                                // the user may make a move on an empty cell
+                                currentPlayer.MakeMove(row, col); moveCount++;
+                                Assert.AreEqual(game.GetMoves().Count, moveCount);
+
+                                // AC 4.1
+                                // make sure the user is not able to make a move on an empty cell
+                                Assert.ThrowsException<ArgumentException>(() => currentPlayer.MakeMove(row, col));
+                                
+
+                                if (turn == Color.Blue)
+                                    turn = Color.Red;
+                                else
+                                    turn = Color.Blue;
+                            }
+
+                    }
         }
     }
 }

@@ -58,5 +58,33 @@ namespace SOSTest
             sosEngine.StartGame();
             Assert.IsFalse(accessibilityManager.IsGameModeAccessible());
         }
+
+        [TestMethod]
+        public void TestIsBoardAccessible()
+        {
+            // AC 4.1 - User attempts to select a board size outside of a game
+
+            // the board should be inaccessible before a game has started
+            Assert.IsFalse(accessibilityManager.IsBoardAccessible());
+
+            // the board should be inaccessible after a game has started
+            sosEngine.StartGame();
+            Assert.IsTrue(accessibilityManager.IsBoardAccessible());
+        }
+
+        [TestMethod]
+        public void TestIsSOAvailable()
+        {
+            // AC 8.4 - User attempts to select a board size outside of a game
+
+            // the SO should be inaccessible before a game has started
+            Assert.IsFalse(accessibilityManager.IsBlueSOAccessible());
+            Assert.IsFalse(accessibilityManager.IsRedSOAccessible());
+
+            // the SO should be accessible after a game has started
+            sosEngine.StartGame();
+            Assert.IsTrue(accessibilityManager.IsBlueSOAccessible());
+            Assert.IsTrue(accessibilityManager.IsRedSOAccessible());
+        }
     }
 }
