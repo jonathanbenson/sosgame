@@ -120,7 +120,7 @@
             0,
             0,
             0});
-            this._boardSizeNum.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this._boardSizeNum.ValueChanged += new System.EventHandler(this._boardSizeNum_ValueChanged);
             // 
             // _generalGameRadio
             // 

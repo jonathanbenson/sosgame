@@ -185,17 +185,6 @@ namespace SOSGame
 
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-            /*
-             * Event handler for when the board size selector is changed.
-             * 
-             */
-            
-            SyncSOSEngine();
-            boardPainter.DrawBoard();
-        }
-
         private void boardCanvas_Paint(object sender, PaintEventArgs e)
         {
             /*
@@ -368,5 +357,15 @@ namespace SOSGame
             Process.Start(processInfo);
         }
 
+        private void _boardSizeNum_ValueChanged(object sender, EventArgs e)
+        {
+            /*
+             * Event handler for when the board size selector is changed.
+             * 
+             */
+
+            SyncSOSEngine();
+            boardPainter.DrawBoard();
+        }
     }
 }
