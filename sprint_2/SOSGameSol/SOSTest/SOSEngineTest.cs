@@ -7,9 +7,17 @@ using SOSLogic;
 
 namespace SOSTest
 {
+
     [TestClass]
     public class SOSEngineTest
     {
+        private int defaultBoardSize;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            defaultBoardSize = 8;
+        }
 
         [TestMethod]
         public void TestStartGame()
@@ -39,6 +47,39 @@ namespace SOSTest
             sosEngine = new SOSEngine();
             sosEngine.StartGame(GameMode.General);
             Assert.AreEqual(sosEngine.GetCurrentGame().GetGameMode(), GameMode.General);
+
+
+            // AC 3.1 - User starts a new game during a game
+            // and... AC 3.2 - User starts a new game outside of a game
+
+            foreach (PlayerType bluePlayerType in Enum.GetValues(typeof(PlayerType)))
+            {
+                foreach (PlayerType redPlayerType in Enum.GetValues(typeof(PlayerType)))
+                {
+                    foreach (GameMode gameMode in Enum.GetValues(typeof(GameMode)))
+                    {
+                        // AC 3.2
+                        // the new game should start with the desired settings
+                        sosEngine = new SOSEngine();
+                        sosEngine.StartGame(gameMode, defaultBoardSize, bluePlayerType, redPlayerType);
+
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetGameMode(), gameMode);
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetBoardSize(), defaultBoardSize);
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetBluePlayer().GetPlayerType(), bluePlayerType);
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetRedPlayer().GetPlayerType(), redPlayerType);
+
+                        // AC 3.1
+                        // the new game should start with the same settings as the current game
+                        sosEngine.StartGame();
+
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetGameMode(), gameMode);
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetBoardSize(), defaultBoardSize);
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetBluePlayer().GetPlayerType(), bluePlayerType);
+                        Assert.AreEqual(sosEngine.GetCurrentGame().GetRedPlayer().GetPlayerType(), redPlayerType);
+
+                    }
+                }
+            }
         }
 
 

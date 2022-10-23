@@ -22,5 +22,10 @@ namespace SOSLogic
         {
 
         }
+
+        public override PlayerType GetPlayerType()
+        {
+            return PlayerType.Human;
+        }
     }
 }

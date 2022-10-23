@@ -41,7 +41,7 @@ namespace SOSLogic
         private List<Move> moves;
         private List<SOSLine> sosLines;
 
-        public Game(int boardSize = 8, bool isBlueComputer = false, bool isRedComputer = false)
+        public Game(int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
         {
             // the board size is the number of rows and columns in the board
             // ensure the board size is between the values of 8 and 12
@@ -52,16 +52,16 @@ namespace SOSLogic
 
             this.boardSize = boardSize;
 
-
+            
 
             // instantiate the blue player depending on whether it is a computer or human
-            if (isBlueComputer)
+            if (bluePlayerType == PlayerType.Computer)
                 bluePlayer = new ComputerPlayer(this, Color.Blue);
             else
                 bluePlayer = new HumanPlayer(this, Color.Blue);
 
             // instantiate the red player depending on whether it is a computer or human
-            if (isRedComputer)
+            if (redPlayerType == PlayerType.Computer)
                 redPlayer = new ComputerPlayer(this, Color.Red);
             else
                 redPlayer = new HumanPlayer(this, Color.Red);

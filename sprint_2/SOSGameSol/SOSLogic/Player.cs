@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace SOSLogic
 {
-   
+    public enum PlayerType
+    {
+        Human,
+        Computer
+    }
+
     public abstract class Player
     {
         /*
@@ -52,6 +57,8 @@ namespace SOSLogic
         {
             return moveType;
         }
+
+        public abstract PlayerType GetPlayerType();
 
     }
 }

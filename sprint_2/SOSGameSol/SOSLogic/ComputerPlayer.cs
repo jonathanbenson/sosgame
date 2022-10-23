@@ -19,6 +19,9 @@ namespace SOSLogic
         public ComputerPlayer(Game game, Color color) : base(game, color)
         {
         }
-
+        public override PlayerType GetPlayerType()
+        {
+            return PlayerType.Computer;
+        }
     }
 }

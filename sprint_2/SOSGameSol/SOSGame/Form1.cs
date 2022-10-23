@@ -281,11 +281,11 @@ namespace SOSGame
                 gameMode = GameMode.General;
 
             // retrieve the desired player types from the GUI controls
-            bool isBlueComputer = _bluePlayerComputerRadio.Checked;
-            bool isRedComputer = _redPlayerComputerRadio.Checked;
+            PlayerType bluePlayerType = _bluePlayerComputerRadio.Checked ? PlayerType.Computer : PlayerType.Human;
+            PlayerType redPlayerType = _redPlayerComputerRadio.Checked ? PlayerType.Computer : PlayerType.Human;
 
             // create a new game with the desired settings
-            sosEngine.StartGame(gameMode, boardSize, isBlueComputer, isRedComputer);
+            sosEngine.StartGame(gameMode, boardSize, bluePlayerType, redPlayerType);
 
             // the board painter needs to have reference to the new game
             // in order to display the game board correctly

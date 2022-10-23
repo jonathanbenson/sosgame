@@ -83,22 +83,49 @@ namespace SOSLogic
                 return currentGame;
         }
 
-        public void StartGame(GameMode gameMode = GameMode.Simple, int boardSize = 8, bool isBlueComputer = false, bool isRedComputer = false)
+        public void StartGame(GameMode gameMode = GameMode.Simple, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
         {
             // start a new game based on the game mode, size of the board, and on the roles of the players
 
-            switch (gameMode)
+            // if there is already a game underway
+            // then start a new game with the same settings as the current game (board size, player types, game mode)
+            if (InGame())
             {
-                case GameMode.Simple:
-                    currentGame = new SimpleGame(boardSize, isBlueComputer, isRedComputer);
-                    break;
+                previousGame = currentGame;
 
-                case GameMode.General:
-                    currentGame = new GeneralGame(boardSize, isBlueComputer, isRedComputer);
-                    break;
+                bluePlayerType = currentGame.GetBluePlayer().GetPlayerType();
+                redPlayerType = currentGame.GetRedPlayer().GetPlayerType();
 
-                default:
-                    throw new ArgumentOutOfRangeException("Invalid game mode!");
+                switch (currentGame.GetGameMode())
+                {
+                    case GameMode.Simple:
+                        currentGame = new SimpleGame(currentGame.GetBoardSize(), bluePlayerType, redPlayerType);
+                        break;
+
+                    case GameMode.General:
+                        currentGame = new GeneralGame(currentGame.GetBoardSize(), bluePlayerType, redPlayerType);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException("Invalid game mode!");
+                }
+
+            }
+            else
+            {
+                switch (gameMode)
+                {
+                    case GameMode.Simple:
+                        currentGame = new SimpleGame(boardSize, bluePlayerType, redPlayerType);
+                        break;
+
+                    case GameMode.General:
+                        currentGame = new GeneralGame(boardSize, bluePlayerType, redPlayerType);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException("Invalid game mode!");
+                }
             }
 
         }
