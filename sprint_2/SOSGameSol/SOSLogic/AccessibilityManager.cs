@@ -8,11 +8,20 @@ namespace SOSLogic
 {
     public class AccessibilityManager
     {
+        /*
+         * The AccessibilityManager class assists with determining which controls are accessible or not in the GUI.
+         * 
+         * A control is accessible if the user can interact with it.
+         * 
+         * Furthermore, a control can be made inaccessible by hiding it or non-responsive.
+         * 
+         */
         
         private SOSEngine sosEngine;
 
         public AccessibilityManager(SOSEngine game)
         {
+            // The AccessibilityManager class is used by the SOSEngine class
             this.sosEngine = game;
         }
 
@@ -51,68 +60,95 @@ namespace SOSLogic
 
         public bool IsGameModeAccessible()
         {
+            // A method to determine whether the user can select the game mode.
+            
             return IsAccessible(false, false, false, false);
         }
 
         public bool IsBlueRoleAccessible()
         {
+            // A method to determine whether the blue player can pick between a human and a computer
+            
             // return IsAccessible(false, false, false, true);
             return false;
         }
 
         public bool IsRedRoleAccessible()
         {
+            // A method to determine whether the red player can pick between a human and a computer
+            
             // return IsAccessible(false, false, true, false);
             return false;
         }
 
         public bool IsRecordButtonAccessible()
         {
+            // A method to determine whether the user can start recording their game via the record button
+            
             return IsAccessible(false, false, true, true);
         }
 
         public bool IsReplayButtonAccessible()
         {
+            // A method to determine whether the user can watch a replay of the previous game via the replay button
+            
+            // The user may not watch a replay if a previous game does not exist
             return sosEngine.ExistsPreviousGame() ? IsAccessible(false, true, false, true) : false;
         }
 
         public bool IsNewGameButtonAccessible()
         {
+            // A method to determine whether the user may start a new game via the new game button
+            
             return IsAccessible(false, true, false, true);
         }
 
         public bool IsBoardSizeAccessible()
         {
+            // A method to determine whether the user may change the board size via the board size selection tool
+            
             return IsAccessible(false, true, true, false);
         }
 
         public bool IsBlueSOAccessible()
         {
+            // A method to determine whether the blue player may choose between a S or O move via the blue S/O controls
+            
             return IsAccessible(false, true, true, true);
         }
 
         public bool IsRedSOAccessible()
         {
+            // A method to determine whether the red player may choose between a S or O move via the red S/O controls
+            
             return IsAccessible(true, false, false, false);
         }
 
         public bool IsBoardAccessible()
         {
+            // A method to determine whether the player is able to make a move on the board (ex. place a S or O)
+            
             return IsAccessible(true, false, false, true);
         }
 
         public bool IsQuitReplayButtonAccessible()
         {
+            // A method to determine whether the user can see the quit replay button
+            
             return IsAccessible(true, false, true, false);
         }
 
         public bool IsCurrentTurnDisplayAccessible()
         {
+            // A method to determine whether the user can see the current turn of the game
+            
             return IsAccessible(true, false, true, true);
         }
 
         public bool IsScoreDisplayAccessible()
         {
+            // A method to determine whether the user can see the score of the game for the red and blue players
+            
             return IsAccessible(true, true, false, false);
         }
     }

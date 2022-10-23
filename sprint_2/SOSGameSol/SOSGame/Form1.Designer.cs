@@ -42,6 +42,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this._quitReplayButton = new System.Windows.Forms.Button();
             this._bluePlayerGroupBox = new System.Windows.Forms.GroupBox();
+            this._redScore = new System.Windows.Forms.Label();
             this._blueScoreLabel = new System.Windows.Forms.Label();
             this._blueSOGroupBox = new System.Windows.Forms.GroupBox();
             this._bluePlayerSRadio = new System.Windows.Forms.RadioButton();
@@ -49,6 +50,7 @@
             this._bluePlayerHumanRadio = new System.Windows.Forms.RadioButton();
             this._bluePlayerComputerRadio = new System.Windows.Forms.RadioButton();
             this._redPlayerGroupBox = new System.Windows.Forms.GroupBox();
+            this._blueScore = new System.Windows.Forms.Label();
             this._redScoreLabel = new System.Windows.Forms.Label();
             this._redSOGroupBox = new System.Windows.Forms.GroupBox();
             this._redPlayerSRadio = new System.Windows.Forms.RadioButton();
@@ -57,8 +59,6 @@
             this._redPlayerComputerRadio = new System.Windows.Forms.RadioButton();
             this.boardCanvas = new System.Windows.Forms.Panel();
             this._sourceCodeLink = new System.Windows.Forms.LinkLabel();
-            this._redScore = new System.Windows.Forms.Label();
-            this._blueScore = new System.Windows.Forms.Label();
             this._topGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._boardSizeNum)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -226,7 +226,15 @@
             this._bluePlayerGroupBox.TabIndex = 8;
             this._bluePlayerGroupBox.TabStop = false;
             this._bluePlayerGroupBox.Text = "Blue Player";
-            this._bluePlayerGroupBox.Enter += new System.EventHandler(this._bluePlayerGroupBox_Enter);
+            // 
+            // _redScore
+            // 
+            this._redScore.AutoSize = true;
+            this._redScore.Location = new System.Drawing.Point(44, 287);
+            this._redScore.Name = "_redScore";
+            this._redScore.Size = new System.Drawing.Size(13, 15);
+            this._redScore.TabIndex = 12;
+            this._redScore.Text = "0";
             // 
             // _blueScoreLabel
             // 
@@ -306,6 +314,15 @@
             this._redPlayerGroupBox.TabIndex = 9;
             this._redPlayerGroupBox.TabStop = false;
             this._redPlayerGroupBox.Text = "Red Player";
+            // 
+            // _blueScore
+            // 
+            this._blueScore.AutoSize = true;
+            this._blueScore.Location = new System.Drawing.Point(44, 287);
+            this._blueScore.Name = "_blueScore";
+            this._blueScore.Size = new System.Drawing.Size(13, 15);
+            this._blueScore.TabIndex = 13;
+            this._blueScore.Text = "0";
             // 
             // _redScoreLabel
             // 
@@ -391,24 +408,6 @@
             this._sourceCodeLink.TabStop = true;
             this._sourceCodeLink.Text = "Source Code";
             this._sourceCodeLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._sourceCodeLink_LinkClicked);
-            // 
-            // _redScore
-            // 
-            this._redScore.AutoSize = true;
-            this._redScore.Location = new System.Drawing.Point(44, 287);
-            this._redScore.Name = "_redScore";
-            this._redScore.Size = new System.Drawing.Size(13, 15);
-            this._redScore.TabIndex = 12;
-            this._redScore.Text = "0";
-            // 
-            // _blueScore
-            // 
-            this._blueScore.AutoSize = true;
-            this._blueScore.Location = new System.Drawing.Point(44, 287);
-            this._blueScore.Name = "_blueScore";
-            this._blueScore.Size = new System.Drawing.Size(13, 15);
-            this._blueScore.TabIndex = 13;
-            this._blueScore.Text = "0";
             // 
             // Form1
             // 

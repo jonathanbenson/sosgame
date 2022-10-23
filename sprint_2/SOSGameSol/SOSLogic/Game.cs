@@ -7,8 +7,33 @@ using System.Drawing;
 
 namespace SOSLogic
 {
+    public enum GameMode
+    {
+        /* 
+         * There are two game modes for the SOS game: Simple and General.
+         * 
+         * In a simple game, the first player to create a SOS wins the game.
+         * If all the cells are filled and no SOS has been created, the game is a draw.
+         * 
+         * In a general game, the game ends once all the cells are filled.
+         * The winner is the player with the most SOSs. If the number of SOSs is equal, the game is a draw.
+         * If a user makes a SOS, then they get a extra turn.
+         * 
+         */
+        
+        Simple,
+        General
+    }
+    
     public class Game
     {
+        /*
+         * The Game class is the base class for the SimpleGame and GeneralGame classes.
+         * 
+         * It handles the logic for the SOS game.
+         * 
+         */
+        
         private int boardSize;
         
         private Player bluePlayer, redPlayer, currentPlayer;
@@ -16,33 +41,58 @@ namespace SOSLogic
         private List<Move> moves;
         private List<SOSLine> sosLines;
 
-        public Game(int boardSize)
+        public Game(int boardSize, bool isBlueComputer, bool isRedComputer)
         {
+            // the board size is the number of rows and columns in the board
             this.boardSize = boardSize;
-            
-            bluePlayer = new Player(this, Color.Blue);
-            redPlayer = new Player(this, Color.Red);
 
+            // instantiate the blue player depending on whether it is a computer or human
+            if (isBlueComputer)
+                bluePlayer = new ComputerPlayer(this, Color.Blue);
+            else
+                bluePlayer = new HumanPlayer(this, Color.Blue);
+
+            // instantiate the red player depending on whether it is a computer or human
+            if (isRedComputer)
+                redPlayer = new ComputerPlayer(this, Color.Red);
+            else
+                redPlayer = new HumanPlayer(this, Color.Red);
+
+            // set the current player to blue
             currentPlayer = bluePlayer;
             
+            // initialize the list of moves and list of sos lines
+            // they are empty because the game has just started
             moves = new List<Move>();
             sosLines = new List<SOSLine>();
         }
         
         public void MakeMove(Move move)
         {
+            // A method that handles the logic for making a move
+
+            // If the move is valid, then add it to the history of moves.
+            // ...and check if it made a SOS.
             if (IsMoveValid(move))
             {
-                CheckSOS(move);
+                // CheckSOS(move);
                 moves.Add(move);
                 SwitchTurns();
             }
+            // If the move is not valid, then throw an exception that will be received by the GUI
+            // to show the user an error message.
             else
                 throw new ArgumentException("Invalid move!");
         }
 
         public void CheckSOS(Move lastMove)
         {
+            /*
+             * A method that checks if the last move created a SOS.
+             * 
+             * 
+             */
+            
             List<List<Move?>> board = new List<List<Move?>>();
 
             for (int i = 0; i < boardSize; ++i)
@@ -287,8 +337,12 @@ namespace SOSLogic
 
         public void SwitchTurns()
         {
+            // Switches the current players turn
+            
+            // If the current player is a blue player, then switch to red
             if (currentPlayer == bluePlayer)
                 currentPlayer = redPlayer;
+            // If the current player is a red player, then switch to blue
             else
                 currentPlayer = bluePlayer;
         }
@@ -308,13 +362,17 @@ namespace SOSLogic
 
         public bool IsRedTurn()
         {
+            // Returns true if it is red's turn, false otherwise
             return currentPlayer == redPlayer;
         }
 
         public int RedScore()
         {
+            // A method to count up the number of completed SOSs of the red player
+            
             int score = 0;
 
+            // Count up the number of SOSs created by the red player
             foreach (SOSLine line in sosLines)
             {
                 if (line.GetPlayer() == redPlayer)
@@ -325,8 +383,11 @@ namespace SOSLogic
         }
         public int BlueScore()
         {
+            // A method to count up the number of completed SOSs of the blue player
+            
             int score = 0;
 
+            // Count up the number of SOSs created by the blue player
             foreach (SOSLine line in sosLines)
             {
                 if (line.GetPlayer() == bluePlayer)
@@ -338,6 +399,8 @@ namespace SOSLogic
 
         public Player GetCurrentPlayer()
         {
+            // Returns the current player (based on whose turn it is)
+            
             if (IsRedTurn())
                 return redPlayer;
             else
@@ -346,21 +409,28 @@ namespace SOSLogic
 
         public Player GetBluePlayer()
         {
+            // Getter for the blue player
+            
             return bluePlayer;
         }
 
         public Player GetRedPlayer()
         {
+            // Getter for the red player
+            
             return redPlayer;
         }
 
         public List<Move> GetMoves()
         {
+            // Getter for the list of moves
             return moves;
         }
         
         public List<SOSLine> GetSOSLines()
         {
+            // Getter for the list of SOS lines
+            
             return sosLines;
         }
     }

@@ -8,20 +8,31 @@ using System.Threading.Tasks;
 namespace SOSLogic
 {
    
-    public class Player
+    public abstract class Player
     {
-        private Game game;
-        private Color color;
-        private MoveType moveType;
-
+        /*
+         * 
+         * A base class that handles the logic associated with a player
+         * 
+         * A human player makes moves manually.
+         * 
+         * A computer player makes moves according to an algorithm.
+         * 
+         */
+        
+        
+        protected Game game;
+        protected Color color;
+        protected MoveType moveType;
+        
         public Player(Game game, Color color)
         {
             this.game = game;
             this.color = color;
             this.moveType = MoveType.S;
         }
-        
-        public void MakeMove(int row, int col)
+
+        public virtual void MakeMove(int row, int col)
         {
             Move move = new Move(this, moveType, row, col);
             game.MakeMove(move);

@@ -8,6 +8,10 @@ namespace SOSLogic
 {
     public class SOSLine
     {
+        /*
+         * A simple class to represent a completed SOS.
+         */
+        
         private Player player;
         private Move s1, o, s2;
     

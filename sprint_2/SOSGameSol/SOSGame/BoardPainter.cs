@@ -9,6 +9,11 @@ namespace SOSGame
 {
     internal class BoardPainter
     {
+        /*
+         * The BoardPainter class handles the logic associated with painting the board.
+         * It draws the grid lines, S's and O's, and the SOS's.
+         */
+        
         private Panel boardCanvas;
         private NumericUpDown boardSizeNum;
         private Graphics graphics;
@@ -24,6 +29,15 @@ namespace SOSGame
 
         public static int Rasterize(int index, int cellSizePixels, int k)
         {
+            /*
+             * A static method that computes where a point should be drawn on the board
+             * according to a desired index, distance between points, and the size of the board.
+             * 
+             * This is used for drawing the grid lines, S's and O's, and the SOS's on
+             * multiple different board sizes.
+             * 
+             */
+
             // index = row or column number
             // cellSizePixels = number of pixels of a cell square dimensions
             // k = number of total pixels of the length of the game board
