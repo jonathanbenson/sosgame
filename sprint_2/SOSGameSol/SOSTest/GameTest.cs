@@ -16,6 +16,7 @@ namespace SOSTest
         int boardSizeDefault;
         int boardSizeUpperLimit;
         int boardSizeLowerLimit;
+        private SimpleGame game;
 
         [TestInitialize()]
         public void Initialize()
@@ -23,6 +24,8 @@ namespace SOSTest
             boardSizeDefault = 8;
             boardSizeUpperLimit = 12;
             boardSizeLowerLimit = 6;
+
+            game = new SimpleGame();
         }
 
         [TestCleanup()]
@@ -139,6 +142,20 @@ namespace SOSTest
                             }
 
                     }
+        }
+
+        [TestMethod]
+        public void TestSwitchTurns()
+        {
+            // UT #7
+            
+            // Make sure the turn is blue before switch turns
+            Assert.AreSame(game.GetCurrentPlayer(), game.GetBluePlayer());
+
+            // check if the turn has switched back to red after switch turns
+            game.SwitchTurns();
+            Assert.AreSame(game.GetCurrentPlayer(), game.GetRedPlayer());
+            
         }
     }
 }

@@ -84,16 +84,20 @@ namespace SOSLogic
         public bool IsRecordButtonAccessible()
         {
             // A method to determine whether the user can start recording their game via the record button
-            
-            return IsAccessible(false, false, true, true);
+
+            // return IsAccessible(false, false, true, true);
+
+            return false;
         }
 
         public bool IsReplayButtonAccessible()
         {
             // A method to determine whether the user can watch a replay of the previous game via the replay button
-            
+
             // The user may not watch a replay if a previous game does not exist
-            return sosEngine.ExistsPreviousGame() ? IsAccessible(false, true, false, true) : false;
+            //return sosEngine.ExistsPreviousGame() ? IsAccessible(false, true, false, true) : false;
+
+            return false;
         }
 
         public bool IsNewGameButtonAccessible()
@@ -134,8 +138,9 @@ namespace SOSLogic
         public bool IsQuitReplayButtonAccessible()
         {
             // A method to determine whether the user can see the quit replay button
-            
-            return IsAccessible(true, false, true, false);
+
+            //return IsAccessible(true, false, true, false);
+            return false;
         }
 
         public bool IsCurrentTurnDisplayAccessible()
@@ -148,8 +153,9 @@ namespace SOSLogic
         public bool IsScoreDisplayAccessible()
         {
             // A method to determine whether the user can see the score of the game for the red and blue players
-            
-            return IsAccessible(true, true, false, false);
+
+            //return IsAccessible(true, true, false, false);
+            return false;
         }
     }
 }

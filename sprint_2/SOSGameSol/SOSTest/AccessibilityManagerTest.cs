@@ -86,5 +86,34 @@ namespace SOSTest
             Assert.IsTrue(accessibilityManager.IsBlueSOAccessible());
             Assert.IsTrue(accessibilityManager.IsRedSOAccessible());
         }
+
+        public void TestIsNewGameButtonAccessible()
+        {
+            // UT #1
+
+            // the SO should be inaccessible before a game has started
+            Assert.IsTrue(accessibilityManager.IsNewGameButtonAccessible());
+
+            // UT #2
+            
+            // the SO should be accessible after a game has started
+            sosEngine.StartGame();
+            Assert.IsTrue(accessibilityManager.IsNewGameButtonAccessible());
+
+        }
+
+        [TestMethod]
+        public void TestIsCurrentTurnDisplayAccessible()
+        {
+            // UT #3
+            // the SO should be inaccessible before a game has started
+            Assert.IsFalse(accessibilityManager.IsCurrentTurnDisplayAccessible());
+
+            // UT #4
+
+            // the SO should be accessible after a game has started
+            sosEngine.StartGame();
+            Assert.IsTrue(accessibilityManager.IsCurrentTurnDisplayAccessible());
+        }
     }
 }
