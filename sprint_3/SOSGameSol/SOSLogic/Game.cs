@@ -92,7 +92,7 @@ namespace SOSLogic
                 GetMoves().Add(move);
 
                 if (!IsOver())
-                    SwitchTurns();
+                    NewTurn();
             }
             // If the move is not valid, then throw an exception that will be received by the GUI
             // to show the user an error message.
@@ -384,6 +384,8 @@ namespace SOSLogic
             }
 
         }
+
+        public abstract void NewTurn();
 
         public void SwitchTurns()
         {

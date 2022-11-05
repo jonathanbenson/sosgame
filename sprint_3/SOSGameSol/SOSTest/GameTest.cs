@@ -11,12 +11,12 @@ namespace SOSTest
 {
     [TestClass]
     public class GameTest
-    // Tests the SOSLogic.Game class via its subclass SimpleGame
+    // Tests the SOSLogic.Game class via its subclass GeneralGame
     {
         int boardSizeDefault;
         int boardSizeUpperLimit;
         int boardSizeLowerLimit;
-        private SimpleGame game;
+        private GeneralGame game;
 
         [TestInitialize()]
         public void Initialize()
@@ -25,7 +25,7 @@ namespace SOSTest
             boardSizeUpperLimit = 12;
             boardSizeLowerLimit = 6;
 
-            game = new SimpleGame();
+            game = new GeneralGame();
         }
 
         [TestCleanup()]
@@ -91,23 +91,19 @@ namespace SOSTest
                                 
                                 if (turn == Color.Blue)
                                 {
-                                    Assert.AreSame(currentPlayer, game.GetBluePlayer());
 
                                     // AC 4.5
                                     // the red player tries to make a move when its not the red players turn
                                     Assert.ThrowsException<ArgumentException>(() => game.GetRedPlayer().MakeMove(row, col));
 
-                                    currentPlayer.SetMoveType(bluePlayerMoveType);
                                 }
                                 else
                                 {
-                                    Assert.AreSame(currentPlayer, game.GetRedPlayer());
 
                                     // AC 4.5
                                     // the blue player tries to make a move when its not the blue players turn
                                     Assert.ThrowsException<ArgumentException>(() => game.GetBluePlayer().MakeMove(row, col));
 
-                                    currentPlayer.SetMoveType(redPlayerMoveType);
                                 }
 
                                 // AC 4.2
@@ -139,8 +135,9 @@ namespace SOSTest
                                     turn = Color.Red;
                                 else
                                     turn = Color.Blue;
-                            }
 
+
+                            }
                     }
         }
 

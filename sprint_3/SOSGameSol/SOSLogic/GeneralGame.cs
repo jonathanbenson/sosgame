@@ -34,6 +34,19 @@ namespace SOSLogic
             return GetMoves().Count == (GetBoardSize() * GetBoardSize());
         }
 
+        public override void NewTurn()
+        {
+            if (GetSOSLines().Count > 0)
+            {
+                SOSLine lastSOSLine = GetSOSLines().Last();
+                Move lastMove = GetMoves().Last();
 
+                // if the last move was a SOS, the player gets another turn
+                if (lastSOSLine.HasMove(lastMove) && lastSOSLine.GetPlayer() == GetCurrentPlayer())
+                    return;
+            }
+
+            SwitchTurns();
+        }
     }
 }

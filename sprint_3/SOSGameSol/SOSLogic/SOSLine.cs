@@ -24,6 +24,11 @@ namespace SOSLogic
             this.s2 = s2;
         }
 
+        public bool HasMove(Move move)
+        {
+            return s1 == move || o == move || s2 == move;
+        }
+
         public Player GetPlayer()
         {
             return player;

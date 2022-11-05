@@ -33,5 +33,10 @@ namespace SOSLogic
         {
             return GameMode.Simple;
         }
+
+        public override void NewTurn()
+        {
+            SwitchTurns();
+        }
     }
 }
