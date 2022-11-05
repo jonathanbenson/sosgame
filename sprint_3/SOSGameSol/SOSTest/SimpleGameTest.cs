@@ -11,19 +11,20 @@ namespace SOSTest
     [TestClass]
     public class SimpleGameTest
     {
-        int boardSizeDefault;
-        int boardSizeUpperLimit;
-        int boardSizeLowerLimit;
-        private SimpleGame game;
+        private int boardSize;
+        private SimpleGame? game;
+        private Player? bluePlayer, redPlayer;
 
         [TestInitialize()]
         public void Initialize()
         {
-            boardSizeDefault = 8;
-            boardSizeUpperLimit = 12;
-            boardSizeLowerLimit = 6;
 
             game = new SimpleGame();
+            
+            bluePlayer = game.GetBluePlayer();
+            redPlayer = game.GetRedPlayer();
+
+            boardSize = game.GetBoardSize();
         }
 
         [TestCleanup()]
@@ -39,11 +40,6 @@ namespace SOSTest
 
             // AC 5.1 - User makes move that wins a simple game
             
-            int boardSize = game.GetBoardSize();
-
-            Player bluePlayer = game.GetBluePlayer();
-            Player redPlayer = game.GetRedPlayer();
-
             game.GetCurrentPlayer().SetMoveType(MoveType.S);
             game.GetCurrentPlayer().MakeMove(0, 0);
 
@@ -113,7 +109,27 @@ namespace SOSTest
         [TestMethod]
         public void TestNewTurn()
         {
-            
+            // UT #9
+            Assert.AreSame(game.GetCurrentPlayer(), bluePlayer);
+
+            game.NewTurn();
+
+            // Switching turns in a simple game when it is the blue player's turn,
+            // it should now be the red player's turn
+            Assert.AreSame(game.GetCurrentPlayer(), redPlayer);
+
+            // UT #10
+
+            game.NewTurn();
+
+            // Switching turns in a simple game when it is the red player's turn,
+            // it should now be the blue player's turn
+            Assert.AreSame(game.GetCurrentPlayer(), bluePlayer);
+
+
+
+
+
         }
  
     }

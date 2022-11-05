@@ -10,19 +10,19 @@ namespace SOSTest
     [TestClass]
     public class GeneralGameTest
     {
-        int boardSizeDefault;
-        int boardSizeUpperLimit;
-        int boardSizeLowerLimit;
-        private GeneralGame game;
+        int boardSize;
+        Player bluePlayer, redPlayer;
+        private GeneralGame? game;
 
         [TestInitialize()]
         public void Initialize()
         {
-            boardSizeDefault = 8;
-            boardSizeUpperLimit = 12;
-            boardSizeLowerLimit = 6;
-
             game = new GeneralGame();
+
+            boardSize = game.GetBoardSize();
+
+            bluePlayer = game.GetBluePlayer();
+            redPlayer = game.GetRedPlayer();
         }
 
         [TestCleanup()]
@@ -38,16 +38,11 @@ namespace SOSTest
 
             // AC 6.1 - User makes move that wins a general game
             // ... and AC 6.2 - User makes move that does not win a general game but completes an SOS
-            int boardSize = game.GetBoardSize();
             
             // the general game is not over when it is first created
             Assert.IsFalse(game.IsOver());
 
-
             // Let the blue player complete an SOS for testing AC 6.2
-            Player bluePlayer = game.GetBluePlayer();
-            Player redPlayer = game.GetRedPlayer();
-
             game.GetCurrentPlayer().SetMoveType(MoveType.S);
             game.GetCurrentPlayer().MakeMove(0, 0);
 
@@ -151,6 +146,54 @@ namespace SOSTest
         [TestMethod]
         public void TestNewTurn()
         {
+            // UT #11
+            Assert.AreSame(game.GetCurrentPlayer(), bluePlayer);
+
+            game.NewTurn();
+
+            // Switching turns in a general game when it is the blue player's turn,
+            // it should now be the red player's turn
+            Assert.AreSame(game.GetCurrentPlayer(), redPlayer);
+
+            // UT #10
+
+            game.NewTurn();
+
+            // Switching turns in a general game when it is the red player's turn,
+            // it should now be the blue player's turn
+            Assert.AreSame(game.GetCurrentPlayer(), bluePlayer);
+
+
+            // UT #11
+            
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(0, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(0, 1);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(0, 2);
+
+            game.NewTurn();
+
+            // Switching turns in a general game when it is the blue player's turn after they made an SOS,
+            // it should now still be the blue player's turn
+            Assert.AreSame(game.GetCurrentPlayer(), bluePlayer);
+
+            // UT #12
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(1, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(2, 0);
+            
+            game.NewTurn();
+
+            // Switching turns in a general game when it is the red player's turn after they made an SOS,
+            // it should now still be the red player's turn
+            Assert.AreSame(game.GetCurrentPlayer(), redPlayer);
 
         }
     }
