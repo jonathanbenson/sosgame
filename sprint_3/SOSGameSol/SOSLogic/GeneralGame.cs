@@ -27,5 +27,13 @@ namespace SOSLogic
         {
             return GameMode.General;
         }
+
+        public override bool IsOver()
+        {
+            // If the board is full, the game is over
+            return GetMoves().Count == (GetBoardSize() * GetBoardSize());
+        }
+
+
     }
 }

@@ -214,7 +214,26 @@ namespace SOSGame
             {
                 // If the board is accessible (during a game), then let the player make a move
                 if (accessibilityManager.IsBoardAccessible())
-                    sosEngine.GetCurrentGame().GetCurrentPlayer().MakeMove(row, col);
+                {
+                    Game game = sosEngine.GetCurrentGame();
+                    
+                    game.GetCurrentPlayer().MakeMove(row, col);
+
+                    boardPainter.DrawBoard();
+
+                    // If the game is over, then display the winner
+                    if (sosEngine.GetCurrentGame().IsOver())
+                    {
+                        Player? winner = game.GetWinner();
+
+                        if (winner == null)
+                            MessageBox.Show("The game is a tie!");
+                        else
+                            MessageBox.Show(winner.GetColor().ToString() + " wins!");
+
+                        sosEngine.EndGame();
+                    }
+                }
                 // else tell the user they need to start a new game if they want to play SOS
                 else
                     MessageBox.Show("Start a new game to play!");
@@ -227,6 +246,8 @@ namespace SOSGame
 
             // remember to display the changes in the GUI
             SyncSOSEngine();
+            boardPainter.DrawBoard();
+
 
 
         }
@@ -286,6 +307,11 @@ namespace SOSGame
 
             // create a new game with the desired settings
             sosEngine.StartGame(gameMode, boardSize, bluePlayerType, redPlayerType);
+
+            // set the move types of the players
+            Game game = sosEngine.GetCurrentGame();
+            game.GetBluePlayer().SetMoveType(_bluePlayerSRadio.Checked ? MoveType.S : MoveType.O);
+            game.GetRedPlayer().SetMoveType(_redPlayerSRadio.Checked ? MoveType.S : MoveType.O);
 
             // the board painter needs to have reference to the new game
             // in order to display the game board correctly

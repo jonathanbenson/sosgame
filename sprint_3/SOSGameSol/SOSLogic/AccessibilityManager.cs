@@ -154,8 +154,7 @@ namespace SOSLogic
         {
             // A method to determine whether the user can see the score of the game for the red and blue players
 
-            //return IsAccessible(true, true, false, false);
-            return false;
+            return IsAccessible(true, true, false, false);
         }
     }
 }

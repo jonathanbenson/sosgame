@@ -37,9 +37,11 @@ namespace SOSLogic
         private int boardSize;
         
         private Player bluePlayer, redPlayer, currentPlayer;
-        
+
         private List<Move> moves;
         private List<SOSLine> sosLines;
+
+        private bool isOver;
 
         public Game(int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
         {
@@ -73,8 +75,11 @@ namespace SOSLogic
             // they are empty because the game has just started
             moves = new List<Move>();
             sosLines = new List<SOSLine>();
+
+            // A game that just started is not over yet
+            isOver = false;
         }
-        
+
         public void MakeMove(Move move)
         {
             // A method that handles the logic for making a move
@@ -83,14 +88,45 @@ namespace SOSLogic
             // ...and check if it made a SOS.
             if (IsMoveValid(move))
             {
-                // CheckSOS(move);
-                moves.Add(move);
-                SwitchTurns();
+                CheckSOS(move);
+                GetMoves().Add(move);
+
+                if (!IsOver())
+                    SwitchTurns();
             }
             // If the move is not valid, then throw an exception that will be received by the GUI
             // to show the user an error message.
             else
                 throw new ArgumentException("Invalid move!");
+        }
+
+        public abstract bool IsOver();
+
+        public Player? GetWinner()
+        {
+            if (!IsOver())
+                throw new Exception("Game is not over yet!");
+
+            // Count the number of SOSs made by the blue and red players
+            int blueSOSLineCount = 0, redSOSLineCount = 0;
+
+            foreach (SOSLine sosLine in GetSOSLines())
+            {
+                if (sosLine.GetPlayer() == GetBluePlayer())
+                    blueSOSLineCount++;
+                else if (sosLine.GetPlayer() == GetRedPlayer())
+                    redSOSLineCount++;
+            }
+
+            // If the blue player has more SOSs, then they are the winner
+            if (blueSOSLineCount > redSOSLineCount)
+                return GetBluePlayer();
+            // If the red player has more SOSs, then they are the winner
+            else if (blueSOSLineCount < redSOSLineCount)
+                return GetRedPlayer();
+            // If the number of SOSs is equal, then the game is a draw
+            else
+                return null;
         }
 
         private static bool IsBoardSizeValid(int boardSize)
@@ -423,6 +459,13 @@ namespace SOSLogic
 
             return score;
         }
+
+        protected void EndGame()
+        {
+            // Ends the game
+            isOver = true;
+        }
+
 
         public Player GetCurrentPlayer()
         {

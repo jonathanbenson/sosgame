@@ -22,6 +22,13 @@ namespace SOSLogic
             
         }
 
+
+        public override bool IsOver()
+        {
+            // If there is at least one SOS line or the board is full, the game is over
+            return GetSOSLines().Count > 0 || GetMoves().Count == (GetBoardSize() * GetBoardSize());
+        }
+
         public override GameMode GetGameMode()
         {
             return GameMode.Simple;
