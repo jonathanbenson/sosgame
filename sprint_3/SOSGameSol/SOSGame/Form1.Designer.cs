@@ -215,8 +215,8 @@
             // 
             // _bluePlayerGroupBox
             // 
-            this._bluePlayerGroupBox.Controls.Add(this._redScore);
             this._bluePlayerGroupBox.Controls.Add(this._blueScoreLabel);
+            this._bluePlayerGroupBox.Controls.Add(this._blueScore);
             this._bluePlayerGroupBox.Controls.Add(this._blueSOGroupBox);
             this._bluePlayerGroupBox.Controls.Add(this._bluePlayerHumanRadio);
             this._bluePlayerGroupBox.Controls.Add(this._bluePlayerComputerRadio);
@@ -303,7 +303,7 @@
             // 
             // _redPlayerGroupBox
             // 
-            this._redPlayerGroupBox.Controls.Add(this._blueScore);
+            this._redPlayerGroupBox.Controls.Add(this._redScore);
             this._redPlayerGroupBox.Controls.Add(this._redScoreLabel);
             this._redPlayerGroupBox.Controls.Add(this._redSOGroupBox);
             this._redPlayerGroupBox.Controls.Add(this._redPlayerHumanRadio);
