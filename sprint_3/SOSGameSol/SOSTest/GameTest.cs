@@ -16,7 +16,9 @@ namespace SOSTest
         int boardSizeDefault;
         int boardSizeUpperLimit;
         int boardSizeLowerLimit;
-        private GeneralGame game;
+        Player? bluePlayer, redPlayer;
+        private GeneralGame? game;
+        int boardSize;
 
         [TestInitialize()]
         public void Initialize()
@@ -26,6 +28,11 @@ namespace SOSTest
             boardSizeLowerLimit = 6;
 
             game = new GeneralGame();
+
+            boardSize = game.GetBoardSize();
+
+            bluePlayer = game.GetBluePlayer();
+            redPlayer = game.GetRedPlayer();
         }
 
         [TestCleanup()]
@@ -153,6 +160,271 @@ namespace SOSTest
             game.SwitchTurns();
             Assert.AreSame(game.GetCurrentPlayer(), game.GetRedPlayer());
             
+        }
+
+        [TestMethod]
+        public void TestCheckSOS()
+        {
+
+            int lastORow = boardSize - 2;
+            int lastOCol = boardSize - 2;
+            int lastSRow = boardSize - 3;
+            int lastSCol = boardSize - 3;
+
+            // UT #15 - SOS line (last O) ->vertical line case
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow + 1, lastOCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow - 1, lastOCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastORow, lastOCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #16 - SOS line (last O) ->horizontal line case
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow, lastOCol - 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow, lastOCol + 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastORow, lastOCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #17 - SOS line (last O) -> positive diagonal case
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow + 1, lastOCol - 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow - 1, lastOCol + 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastORow, lastOCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #18 - SOS line (last O) -> negative diagonal case
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow - 1, lastOCol - 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastORow + 1, lastOCol + 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastORow, lastOCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #19 - SOS line (last S) -> vertical line case (last move on top S)
+            
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow + 2, lastSCol);
+            
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow + 1, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #20 - SOS line (last S) -> vertical line case (last move on bottom S)
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow - 2, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow - 1, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #21 - SOS line (last S) -> horizontal line case (last move on right S)
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol - 2);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol - 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #22 - SOS line (last S) -> horizontal line case (last move on left S)
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol + 2);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol + 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #23 - SOS line (last S) -> positive diagonal case (last move on top-right S)
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow + 2, lastSCol - 2);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow + 1, lastSCol - 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #24 - SOS line (last S) -> positive diagonal case (last move on bottom-left S)
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow - 2, lastSCol + 2);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow - 1, lastSCol + 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #25 - SOS line (last S) -> negative diagonal case (last move on top-left S)
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow + 2, lastSCol + 2);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow + 1, lastSCol + 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+            // UT #26 - SOS line (last S) -> negative diagonal case (last move on bottom-right S)
+
+            game = new GeneralGame();
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow - 2, lastSCol - 2);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.O);
+            game.GetCurrentPlayer().MakeMove(lastSRow - 1, lastSCol - 1);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 0);
+
+            game.GetCurrentPlayer().SetMoveType(MoveType.S);
+            game.GetCurrentPlayer().MakeMove(lastSRow, lastSCol);
+
+            Assert.AreEqual(game.GetSOSLines().Count, 1);
+
+
+
         }
     }
 }
