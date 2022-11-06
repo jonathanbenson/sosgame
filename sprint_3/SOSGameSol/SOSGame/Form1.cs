@@ -227,9 +227,15 @@ namespace SOSGame
                         Player? winner = game.GetWinner();
 
                         if (winner == null)
-                            MessageBox.Show("The game is a tie!");
+                            MessageBox.Show("The game is a draw!");
                         else
-                            MessageBox.Show(winner.GetColor().ToString() + " wins!");
+                        {
+                            if (winner == game.GetBluePlayer())
+                                MessageBox.Show("Blue is the winner!");
+                            else
+                                MessageBox.Show("Red is the winner!");
+                        }
+                            
 
                         sosEngine.EndGame();
                     }
