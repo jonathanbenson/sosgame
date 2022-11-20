@@ -69,16 +69,14 @@ namespace SOSLogic
         {
             // A method to determine whether the blue player can pick between a human and a computer
             
-            // return IsAccessible(false, false, false, true);
-            return false;
+            return IsAccessible(false, false, false, true);
         }
 
         public bool IsRedRoleAccessible()
         {
             // A method to determine whether the red player can pick between a human and a computer
             
-            // return IsAccessible(false, false, true, false);
-            return false;
+            return IsAccessible(false, false, true, false);
         }
 
         public bool IsRecordButtonAccessible()

@@ -27,5 +27,11 @@ namespace SOSLogic
         {
             return PlayerType.Human;
         }
+
+        public override void MakeMove(int row, int col)
+        {
+            Move move = new Move(this, moveType, row, col);
+            game.MakeMove(move);
+        }
     }
 }

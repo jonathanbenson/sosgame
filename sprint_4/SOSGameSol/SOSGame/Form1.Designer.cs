@@ -42,15 +42,15 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this._quitReplayButton = new System.Windows.Forms.Button();
             this._bluePlayerGroupBox = new System.Windows.Forms.GroupBox();
-            this._redScore = new System.Windows.Forms.Label();
             this._blueScoreLabel = new System.Windows.Forms.Label();
+            this._blueScore = new System.Windows.Forms.Label();
             this._blueSOGroupBox = new System.Windows.Forms.GroupBox();
             this._bluePlayerSRadio = new System.Windows.Forms.RadioButton();
             this._bluePlayerORadio = new System.Windows.Forms.RadioButton();
             this._bluePlayerHumanRadio = new System.Windows.Forms.RadioButton();
             this._bluePlayerComputerRadio = new System.Windows.Forms.RadioButton();
+            this._redScore = new System.Windows.Forms.Label();
             this._redPlayerGroupBox = new System.Windows.Forms.GroupBox();
-            this._blueScore = new System.Windows.Forms.Label();
             this._redScoreLabel = new System.Windows.Forms.Label();
             this._redSOGroupBox = new System.Windows.Forms.GroupBox();
             this._redPlayerSRadio = new System.Windows.Forms.RadioButton();
@@ -227,15 +227,6 @@
             this._bluePlayerGroupBox.TabStop = false;
             this._bluePlayerGroupBox.Text = "Blue Player";
             // 
-            // _redScore
-            // 
-            this._redScore.AutoSize = true;
-            this._redScore.Location = new System.Drawing.Point(44, 287);
-            this._redScore.Name = "_redScore";
-            this._redScore.Size = new System.Drawing.Size(13, 15);
-            this._redScore.TabIndex = 12;
-            this._redScore.Text = "0";
-            // 
             // _blueScoreLabel
             // 
             this._blueScoreLabel.AutoSize = true;
@@ -244,6 +235,15 @@
             this._blueScoreLabel.Size = new System.Drawing.Size(39, 15);
             this._blueScoreLabel.TabIndex = 11;
             this._blueScoreLabel.Text = "Score:";
+            // 
+            // _blueScore
+            // 
+            this._blueScore.AutoSize = true;
+            this._blueScore.Location = new System.Drawing.Point(44, 287);
+            this._blueScore.Name = "_blueScore";
+            this._blueScore.Size = new System.Drawing.Size(13, 15);
+            this._blueScore.TabIndex = 13;
+            this._blueScore.Text = "0";
             // 
             // _blueSOGroupBox
             // 
@@ -301,6 +301,15 @@
             this._bluePlayerComputerRadio.Text = "Computer";
             this._bluePlayerComputerRadio.UseVisualStyleBackColor = true;
             // 
+            // _redScore
+            // 
+            this._redScore.AutoSize = true;
+            this._redScore.Location = new System.Drawing.Point(44, 287);
+            this._redScore.Name = "_redScore";
+            this._redScore.Size = new System.Drawing.Size(13, 15);
+            this._redScore.TabIndex = 12;
+            this._redScore.Text = "0";
+            // 
             // _redPlayerGroupBox
             // 
             this._redPlayerGroupBox.Controls.Add(this._redScore);
@@ -314,15 +323,6 @@
             this._redPlayerGroupBox.TabIndex = 9;
             this._redPlayerGroupBox.TabStop = false;
             this._redPlayerGroupBox.Text = "Red Player";
-            // 
-            // _blueScore
-            // 
-            this._blueScore.AutoSize = true;
-            this._blueScore.Location = new System.Drawing.Point(44, 287);
-            this._blueScore.Name = "_blueScore";
-            this._blueScore.Size = new System.Drawing.Size(13, 15);
-            this._blueScore.TabIndex = 13;
-            this._blueScore.Text = "0";
             // 
             // _redScoreLabel
             // 

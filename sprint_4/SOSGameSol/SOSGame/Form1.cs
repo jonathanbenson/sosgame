@@ -1,6 +1,7 @@
 using System.Diagnostics;
-
+using System.Linq.Expressions;
 using SOSLogic;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace SOSGame
 {
@@ -15,6 +16,9 @@ namespace SOSGame
         BoardPainter boardPainter;
         AccessibilityManager accessibilityManager;
         SOSEngine sosEngine;
+
+        // miliseconds
+        int computerPlayerMoveDecisionTime = 1000;
 
         public Form1()
         {
@@ -181,7 +185,22 @@ namespace SOSGame
                 _currentTurn.ForeColor = Color.Blue;
             }
 
+            try
+            {
+                Game game = sosEngine.GetCurrentGame();
 
+                Player redPlayer = game.GetRedPlayer();
+                Player bluePlayer = game.GetBluePlayer();
+
+                _redPlayerSRadio.Checked = redPlayer.GetMoveType() == MoveType.S ? true : false;
+                _redPlayerORadio.Checked = redPlayer.GetMoveType() == MoveType.O ? true : false;
+                _bluePlayerSRadio.Checked = bluePlayer.GetMoveType() == MoveType.S ? true : false;
+                _bluePlayerORadio.Checked = bluePlayer.GetMoveType() == MoveType.O ? true : false;
+            }
+            catch (Exception exc)
+            {
+                
+            }
 
         }
 
@@ -221,24 +240,8 @@ namespace SOSGame
 
                     boardPainter.DrawBoard();
 
-                    // If the game is over, then display the winner
-                    if (sosEngine.GetCurrentGame().IsOver())
-                    {
-                        Player? winner = game.GetWinner();
-
-                        if (winner == null)
-                            MessageBox.Show("The game is a draw!");
-                        else
-                        {
-                            if (winner == game.GetBluePlayer())
-                                MessageBox.Show("Blue is the winner!");
-                            else
-                                MessageBox.Show("Red is the winner!");
-                        }
-                            
-
-                        sosEngine.EndGame();
-                    }
+                    // End the current game if it is over
+                    EndGameIfOver();
                 }
                 // else tell the user they need to start a new game if they want to play SOS
                 else
@@ -254,8 +257,46 @@ namespace SOSGame
             SyncSOSEngine();
             boardPainter.DrawBoard();
 
+            try
+            {
+                // if the next player is a computer, then make a move for them
+                if (sosEngine.GetCurrentGame().GetCurrentPlayer().GetPlayerType() == PlayerType.Computer)
+                    ComputerPlayerMakeMove();
+            }
+            // an exception is thrown if the last move ended the game
+            catch (Exception exc)
+            {
+                return;
+            }
+
+        }
+
+        bool EndGameIfOver()
+        {
+            Game game = sosEngine.GetCurrentGame();
+
+            // If the game is over, then display the winner
+            if (game.IsOver())
+            {
+                Player? winner = game.GetWinner();
+
+                if (winner == null)
+                    MessageBox.Show("The game is a draw!");
+                else
+                {
+                    if (winner == game.GetBluePlayer())
+                        MessageBox.Show("Blue is the winner!");
+                    else
+                        MessageBox.Show("Red is the winner!");
+                }
 
 
+                sosEngine.EndGame();
+
+                return true;
+            }
+            else
+                return false;
         }
 
         private Tuple<int, int> GetRowColOfPoint(Point point)
@@ -325,6 +366,11 @@ namespace SOSGame
 
             // display the changes in the GUI
             SyncSOSEngine();
+
+            // if the starting player is a computer, then make a move for them
+            if (game.GetCurrentPlayer().GetPlayerType() == PlayerType.Computer)
+                ComputerPlayerMakeMove();
+
         }
 
         private void _bluePlayerSRadio_CheckedChanged(object sender, EventArgs e)
@@ -398,6 +444,31 @@ namespace SOSGame
 
             SyncSOSEngine();
             boardPainter.DrawBoard();
+        }
+
+        private void ComputerPlayerMakeMove()
+        {
+
+            ComputerPlayer computerPlayer = (ComputerPlayer)sosEngine.GetCurrentGame().GetCurrentPlayer();
+
+            // make the move
+            computerPlayer.ChooseRandomMoveType();
+            SyncSOSEngine();
+            Thread.Sleep(computerPlayerMoveDecisionTime);
+            computerPlayer.MakeMove();
+            boardPainter.DrawBoard();
+            Thread.Sleep(computerPlayerMoveDecisionTime);
+
+
+            if (!EndGameIfOver())
+            {
+                // if the player of the next turn is a computer, then make a move for them
+                Player nextPlayer = sosEngine.GetCurrentGame().GetCurrentPlayer();
+
+                if (nextPlayer.GetPlayerType() == PlayerType.Computer)
+                    ComputerPlayerMakeMove();
+            }
+
         }
     }
 }

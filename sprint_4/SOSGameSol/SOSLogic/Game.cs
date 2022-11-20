@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Data;
+using System.Diagnostics;
 
 namespace SOSLogic
 {
@@ -23,6 +25,27 @@ namespace SOSLogic
         
         Simple,
         General
+    }
+
+    public class Cell
+    {
+        public Cell(int r, int c)
+        {
+            row = r;
+            col = c;
+        }
+
+        public int GetRow()
+        {
+            return row;
+        }
+
+        public int GetCol()
+        {
+            return col;
+        }
+
+        private int row, col;
     }
     
     public abstract class Game
@@ -83,6 +106,7 @@ namespace SOSLogic
         public void MakeMove(Move move)
         {
             // A method that handles the logic for making a move
+            Debug.WriteLine(move.GetRow().ToString() + ' ' + move.GetCol().ToString());
 
             // If the move is valid, then add it to the history of moves.
             // ...and check if it made a SOS.
@@ -514,5 +538,30 @@ namespace SOSLogic
         }
 
         public abstract GameMode GetGameMode();
+
+        public List<Cell> GetEmptyCells()
+        {
+            List<Cell> emptyCells = new List<Cell>();
+
+            for (int r = 0; r < boardSize; r++)
+            {
+                for (int c = 0; c < boardSize; c++)
+                {
+                    bool isEmpty = true;
+
+                    foreach (Move move in moves)
+                        if (move.GetRow() == r && move.GetCol() == c)
+                        {
+                            isEmpty = false;
+                            break;
+                        }
+
+                    if (isEmpty)
+                        emptyCells.Add(new Cell(r, c));
+                }
+            }
+
+            return emptyCells;
+        }
     }
 }

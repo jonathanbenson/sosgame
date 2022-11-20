@@ -37,11 +37,7 @@ namespace SOSLogic
             this.moveType = MoveType.S;
         }
 
-        public virtual void MakeMove(int row, int col)
-        {
-            Move move = new Move(this, moveType, row, col);
-            game.MakeMove(move);
-        }
+        public abstract void MakeMove(int row = -1, int col = -1);
 
         public Color GetColor()
         {
