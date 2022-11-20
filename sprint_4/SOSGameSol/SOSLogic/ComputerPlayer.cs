@@ -46,7 +46,7 @@ namespace SOSLogic
                 MakeGeneralMove(CoinFlip.IsHeads());
         }
 
-        private void MakeSimpleMove(bool firstCoinFlip, bool secondCoinFlip)
+        public void MakeSimpleMove(bool firstCoinFlip, bool secondCoinFlip)
         {
             List<Move> possibleSOSMoves = game.GetSOSOpportunities();
 
@@ -56,7 +56,7 @@ namespace SOSLogic
                 MakeRandomMove();
         }
 
-        private void MakeGeneralMove(bool coinFlip)
+        public void MakeGeneralMove(bool coinFlip)
         {
             List<Move> possibleSOSMoves = game.GetSOSOpportunities();
 
