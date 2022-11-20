@@ -19,7 +19,7 @@ namespace SOSGame
         SOSEngine sosEngine;
 
         // miliseconds
-        int computerPlayerMoveDecisionTime = 0;
+        long computerPlayerMoveDecisionTime = 1000;
 
         public Form1()
         {
@@ -464,7 +464,7 @@ namespace SOSGame
         private async void ComputerPlayerMakeMove()
         {
             if (sosEngine.InGame())
-                await Task.Run(() =>
+                await Task.Run(async () =>
                 {
                     ComputerPlayer computerPlayer = (ComputerPlayer)sosEngine.GetCurrentGame().GetCurrentPlayer();
 
@@ -472,8 +472,16 @@ namespace SOSGame
                     computerPlayer.ChooseRandomMoveType();
 
                     Invoke(new MethodInvoker(delegate { SyncSOSEngine(); }));
-                
+
+                    var watch = new System.Diagnostics.Stopwatch();
+
+                    watch.Start();
                     computerPlayer.MakeMove();
+                    watch.Stop();
+
+                    if (watch.ElapsedMilliseconds < computerPlayerMoveDecisionTime)
+                        await Task.Delay((int)(computerPlayerMoveDecisionTime - watch.ElapsedMilliseconds));
+
                     boardPainter.DrawBoard();
 
 
