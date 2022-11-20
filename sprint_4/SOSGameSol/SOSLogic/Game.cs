@@ -166,7 +166,7 @@ namespace SOSLogic
              * 
              * 
              */
-            
+
             List<List<Move?>> board = new List<List<Move?>>();
 
             for (int i = 0; i < boardSize; ++i)
@@ -406,6 +406,263 @@ namespace SOSLogic
                 catch (ArgumentOutOfRangeException exc)
                 { }
             }
+
+        }
+
+
+        public List<Move> GetSOSOpportunities()
+        {
+            /*
+             * A method that checks if the last move created a SOS.
+             * 
+             * 
+             */
+
+            List<List<Move?>> board = new List<List<Move?>>();
+
+            for (int i = 0; i < boardSize; ++i)
+            {
+                board.Add(new List<Move?>());
+
+                for (int j = 0; j < boardSize; ++j)
+                {
+                    board[i].Add(null);
+                }
+            }
+
+            foreach (Move move in moves)
+                board[move.GetRow()][move.GetCol()] = move;
+
+            // get list of possible moves
+
+            List<Cell> emptyCells = GetEmptyCells();
+
+            List<Move> possibleMoves = new List<Move>();
+
+            foreach (Cell cell in emptyCells)
+                foreach (MoveType moveType in Enum.GetValues(typeof(MoveType)))
+                    possibleMoves.Add(new Move(GetCurrentPlayer(), moveType, cell.GetRow(), cell.GetCol()));
+
+            // get list of possible SOS move opportunities
+
+            List<Move> possibleSOSMoves = new List<Move>();
+
+            foreach (Move possibleMove in possibleMoves)
+            {
+
+                if (possibleMove.GetMoveType() == MoveType.O)
+                {
+                    // vertical line case
+                    try
+                    {
+                        Move? s1 = board[possibleMove.GetRow() - 1][possibleMove.GetCol()];
+                        Move? s2 = board[possibleMove.GetRow() + 1][possibleMove.GetCol()];
+
+                        if (!(s1 is null) && !(s2 is null))
+                        {
+                            if (s1.GetMoveType() == MoveType.S && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+
+                    // horizontal line case
+                    try
+                    {
+                        Move? s1 = board[possibleMove.GetRow()][possibleMove.GetCol() - 1];
+                        Move? s2 = board[possibleMove.GetRow()][possibleMove.GetCol() + 1];
+
+                        if (!(s1 is null) && !(s2 is null))
+                        {
+                            if (s1.GetMoveType() == MoveType.S && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // positive diagonal case
+                    try
+                    {
+                        Move? s1 = board[possibleMove.GetRow() + 1][possibleMove.GetCol() - 1];
+                        Move? s2 = board[possibleMove.GetRow() - 1][possibleMove.GetCol() + 1];
+
+                        if (!(s1 is null) && !(s2 is null))
+                        {
+                            if (s1.GetMoveType() == MoveType.S && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // negative diagonal case
+                    try
+                    {
+                        Move? s1 = board[possibleMove.GetRow() - 1][possibleMove.GetCol() - 1];
+                        Move? s2 = board[possibleMove.GetRow() + 1][possibleMove.GetCol() + 1];
+
+                        if (!(s1 is null) && !(s2 is null))
+                        {
+                            if (s1.GetMoveType() == MoveType.S && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                }
+                else if (possibleMove.GetMoveType() == MoveType.S)
+                {
+                    // vertical line case (last move on top S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow() + 1][possibleMove.GetCol()];
+                        Move? s2 = board[possibleMove.GetRow() + 2][possibleMove.GetCol()];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // vertical line case (last move on bottom S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow() - 1][possibleMove.GetCol()];
+                        Move? s2 = board[possibleMove.GetRow() - 2][possibleMove.GetCol()];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // horizontal line case (last move on right S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow()][possibleMove.GetCol() - 1];
+                        Move? s2 = board[possibleMove.GetRow()][possibleMove.GetCol() - 2];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // horizontal line case (last move on left S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow()][possibleMove.GetCol() + 1];
+                        Move? s2 = board[possibleMove.GetRow()][possibleMove.GetCol() + 2];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // positive diagonal case (last move on top-right S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow() + 1][possibleMove.GetCol() - 1];
+                        Move? s2 = board[possibleMove.GetRow() + 2][possibleMove.GetCol() - 2];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // positive diagonal case (last move on bottom-left S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow() - 1][possibleMove.GetCol() + 1];
+                        Move? s2 = board[possibleMove.GetRow() - 2][possibleMove.GetCol() + 2];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // negative diagonal case (last move on top-left S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow() - 1][possibleMove.GetCol() - 1];
+                        Move? s2 = board[possibleMove.GetRow() - 2][possibleMove.GetCol() - 2];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+
+                    // negative diagonal case (last move on bottom-right S)
+                    try
+                    {
+                        Move? o = board[possibleMove.GetRow() + 1][possibleMove.GetCol() + 1];
+                        Move? s2 = board[possibleMove.GetRow() + 2][possibleMove.GetCol() + 2];
+
+                        if (!(o is null) && !(s2 is null))
+                        {
+                            if (o.GetMoveType() == MoveType.O && s2.GetMoveType() == MoveType.S)
+                            {
+                                possibleSOSMoves.Add(possibleMove);
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException exc)
+                    { }
+                }
+            }
+
+            return possibleSOSMoves;
 
         }
 

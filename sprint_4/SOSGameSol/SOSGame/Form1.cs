@@ -18,7 +18,7 @@ namespace SOSGame
         SOSEngine sosEngine;
 
         // miliseconds
-        int computerPlayerMoveDecisionTime = 1000;
+        int computerPlayerMoveDecisionTime = 100;
 
         public Form1()
         {

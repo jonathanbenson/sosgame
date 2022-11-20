@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace SOSLogic
 {
@@ -47,12 +48,24 @@ namespace SOSLogic
 
         private void MakeSimpleMove()
         {
-            MakeRandomMove();
+            List<Move> possibleSOSMoves = game.GetSOSOpportunities();
+
+            if (possibleSOSMoves.Count > 0 && CoinFlip.IsHeads() && CoinFlip.IsHeads())
+                MakeRandomSOSMove(possibleSOSMoves);
+            else
+                MakeRandomMove();
         }
 
         private void MakeGeneralMove()
         {
-            MakeRandomMove();
+            List<Move> possibleSOSMoves = game.GetSOSOpportunities();
+
+            Debug.WriteLine("something");
+
+            if (possibleSOSMoves.Count > 0)
+                MakeRandomSOSMove(possibleSOSMoves);
+            else
+                MakeRandomMove();
         }
 
         public void ChooseRandomMoveType()
@@ -82,6 +95,17 @@ namespace SOSLogic
 
             game.MakeMove(move);
 
+        }
+
+        private void MakeRandomSOSMove(List<Move> possibleSOSMoves)
+        {
+            Random random = new Random();
+
+            int randomSOSMoveIndex = random.Next(possibleSOSMoves.Count);
+
+            Move randomSOSMove = possibleSOSMoves[randomSOSMoveIndex];
+
+            game.MakeMove(randomSOSMove);
         }
     }
 }
