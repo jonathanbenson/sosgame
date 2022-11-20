@@ -46,26 +46,26 @@ namespace SOSLogic
                 MakeGeneralMove(CoinFlip.IsHeads());
         }
 
-        public void MakeSimpleMove(bool firstCoinFlip, bool secondCoinFlip)
+        public Move MakeSimpleMove(bool firstCoinFlip, bool secondCoinFlip)
         {
             List<Move> possibleSOSMoves = game.GetSOSOpportunities();
 
             if (possibleSOSMoves.Count > 0 && firstCoinFlip && secondCoinFlip)
-                MakeRandomSOSMove(possibleSOSMoves);
+                return MakeRandomSOSMove(possibleSOSMoves);
             else
-                MakeRandomMove();
+                return MakeRandomMove();
         }
 
-        public void MakeGeneralMove(bool coinFlip)
+        public Move MakeGeneralMove(bool coinFlip)
         {
             List<Move> possibleSOSMoves = game.GetSOSOpportunities();
 
             Debug.WriteLine("something");
 
             if (possibleSOSMoves.Count > 0 && coinFlip)
-                MakeRandomSOSMove(possibleSOSMoves);
+                return MakeRandomSOSMove(possibleSOSMoves);
             else
-                MakeRandomMove();
+                return MakeRandomMove();
         }
 
         public void ChooseRandomMoveType()
@@ -79,7 +79,7 @@ namespace SOSLogic
             SetMoveType(randomMoveType);
         }
 
-        private void MakeRandomMove()
+        private Move MakeRandomMove()
         {
             // get a random empty cell to make the move on
             List<Cell> emptyCells = game.GetEmptyCells();
@@ -95,9 +95,11 @@ namespace SOSLogic
 
             game.MakeMove(move);
 
+            return move;
+
         }
 
-        private void MakeRandomSOSMove(List<Move> possibleSOSMoves)
+        private Move MakeRandomSOSMove(List<Move> possibleSOSMoves)
         {
             Random random = new Random();
 
@@ -106,6 +108,8 @@ namespace SOSLogic
             Move randomSOSMove = possibleSOSMoves[randomSOSMoveIndex];
 
             game.MakeMove(randomSOSMove);
+
+            return randomSOSMove;
         }
     }
 }

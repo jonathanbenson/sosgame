@@ -73,15 +73,88 @@ namespace SOSTest
         [TestMethod]
         public void TestMakeGeneralMove()
         {
-            // AC 8.1 -> Computer makes a move on an empty board in a simple game or general game
+            // create a new simple game with two computer players
+            GeneralGame generalGame = new GeneralGame(8, PlayerType.Computer, PlayerType.Computer);
 
-            // AC 8.2 -> Computer makes a move on a nonempty board in a simple game or general game
-            // ... when there is no opportunity to complete an SOS
+            while (!generalGame.IsOver())
+            {
+                ComputerPlayer currentPlayer = (ComputerPlayer)generalGame.GetCurrentPlayer();
 
-            // AC 8.4 -> Computer makes a move when there is an opportunity to complete only one SOS in a general game
+                bool coinFlip = CoinFlip.IsHeads();
 
-            // AC 8.5 -> Computer makes a move when there are multiple opportunities to complete
-            // ... an SOS in a general game
+                int nSOSOpportunities = generalGame.GetSOSOpportunities().Count;
+                int previousSOSLineCount = generalGame.GetSOSLines().Count;
+
+                Move move = currentPlayer.MakeGeneralMove(coinFlip);
+
+                if (nSOSOpportunities > 1 && coinFlip)
+                {
+
+                    // AC 8.5 -> Computer makes a move when there are multiple opportunities to complete
+                    // ... an SOS in a general game
+
+                    // if there was an opportunity to complete an SOS and the coin toss was heads
+                    // ... then the computer should have chosen to complete the SOS
+                    Assert.IsTrue(generalGame.GetSOSLines().Count > previousSOSLineCount);
+                }
+                else if (nSOSOpportunities > 1 && !coinFlip)
+                {
+                    // AC 8.5 -> Computer makes a move when there are multiple opportunities to complete
+                    // ... an SOS in a general game
+
+                    // if there were multiple opportunities to complete an SOS and the coin toss was tails
+                    // ... then the computer should have made a move on a random empty cell
+
+                    // if the random move did not complete an SOS, then the number of SOSLines should be the same
+                    if (generalGame.DoesCompleteSOS(move))
+                        Assert.IsTrue(generalGame.GetSOSLines().Count > previousSOSLineCount);
+                    // if the random move DID complete an SOS, then the number of SOSLines should be greater than before
+                    else
+                        Assert.AreEqual(generalGame.GetSOSLines().Count, previousSOSLineCount);
+
+                }
+                else if (nSOSOpportunities > 0 && coinFlip)
+                {
+                    // AC 8.4 -> Computer makes a move when there is an opportunity to complete only one SOS in a general game
+
+                    // if there was more than one opportunity to complete an SOS and the coin toss was heads
+                    // ... then the computer should have chosen to complete the SOS
+                    Assert.IsTrue(generalGame.GetSOSLines().Count > previousSOSLineCount);
+                }
+                else if (nSOSOpportunities > 0 && !coinFlip)
+                {
+                    // AC 8.4 -> Computer makes a move when there is an opportunity to complete only one SOS in a general game
+
+                    // if there was more than one opportunity to complete an SOS and the coin toss was tails
+                    // ... then the computer should have chosen to not complete the SOS
+
+                    // if the random move did not complete an SOS, then the number of SOSLines should be the same
+                    if (generalGame.DoesCompleteSOS(move))
+                        Assert.IsTrue(generalGame.GetSOSLines().Count > previousSOSLineCount);
+                    // if the random move DID complete an SOS, then the number of SOSLines should be greater than before
+                    else
+                        Assert.AreEqual(generalGame.GetSOSLines().Count, previousSOSLineCount);
+                }
+                else
+                {
+                    // AC 8.1 -> Computer makes a move on an empty board in a simple game or general game
+
+                    // AC 8.2 -> Computer makes a move on a nonempty board in a simple game or general game
+                    // ... when there is no opportunity to complete an SOS
+
+
+                    // if there was not an opportunity to complete an SOS or the coin toss was not heads
+                    // ... then the computer should have chosen to not complete the SOS
+                    // ... and instead make a move on a randomly selected empty cell
+
+                    // if the random move did not complete an SOS, then the number of SOSLines should be the same
+                    if (generalGame.DoesCompleteSOS(move))
+                        Assert.IsTrue(generalGame.GetSOSLines().Count > previousSOSLineCount);
+                    // if the random move DID complete an SOS, then the number of SOSLines should be greater than before
+                    else
+                        Assert.AreEqual(generalGame.GetSOSLines().Count, previousSOSLineCount);
+                }
+            }
         }
     }
 }
