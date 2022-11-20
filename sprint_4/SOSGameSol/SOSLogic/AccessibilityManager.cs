@@ -55,7 +55,7 @@ namespace SOSLogic
             bool i = sosEngine.IsRedComputer();
 
             // Boolean function generated from the output column of the accessibility truth table
-            return (a && b && !c && !d && e) || (a && b && !c && !d && f) || (a && !b && c && e) || (a && !b && !c && !e && f && !i) || (a && !b && d && !e && f) || (!a && b && !c && d && !e) || (!a && b && d && !e && f && !h) || (!a && !b && !e && !f) || (!a && !d && !e && !f);
+            return (a && b && !c && !d && e) || (a && b && !c && !d && f) || (a && !b && c && d && f) || (a && !b && c && e) || (a && !b && !c && !e && f && g && !i) || (a && !b && d && !e && f && !g && !h) || (a && !c && !d && !e && f && !i) || (!a && b && !c && d && !e) || (!a && b && d && !e && f && !h) || (!a && !b && !e && !f) || (!a && !d && !e && !f);
         }
 
         public bool IsGameModeAccessible()

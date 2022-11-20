@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Xml.Linq;
 using SOSLogic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
@@ -18,7 +19,7 @@ namespace SOSGame
         SOSEngine sosEngine;
 
         // miliseconds
-        int computerPlayerMoveDecisionTime = 100;
+        int computerPlayerMoveDecisionTime = 0;
 
         public Form1()
         {
@@ -242,10 +243,38 @@ namespace SOSGame
 
                     // End the current game if it is over
                     EndGameIfOver();
+
+                    // remember to display the changes in the GUI
+                    SyncSOSEngine();
+                    boardPainter.DrawBoard();
+
+                    try
+                    {
+                        // if the next player is a computer, then make a move for them
+                        if (sosEngine.GetCurrentGame().GetCurrentPlayer().GetPlayerType() == PlayerType.Computer)
+                            ComputerPlayerMakeMove();
+                    }
+                    // an exception is thrown if the last move ended the game
+                    catch (Exception exc)
+                    {
+                        return;
+                    }
                 }
                 // else tell the user they need to start a new game if they want to play SOS
                 else
-                    MessageBox.Show("Start a new game to play!");
+                {
+                    try
+                    {
+                        Game game = sosEngine.GetCurrentGame();
+
+                        MessageBox.Show("It is the computer player's turn!");
+                    }
+                    catch (Exception exc)
+                    {
+                        MessageBox.Show("Start a new game to play!");
+                    }
+                }
+                    
             }
             // if they player makes an invalid move, tell them they can't do that
             catch (ArgumentException exc)
@@ -253,21 +282,7 @@ namespace SOSGame
                 MessageBox.Show(exc.Message);
             }
 
-            // remember to display the changes in the GUI
-            SyncSOSEngine();
-            boardPainter.DrawBoard();
 
-            try
-            {
-                // if the next player is a computer, then make a move for them
-                if (sosEngine.GetCurrentGame().GetCurrentPlayer().GetPlayerType() == PlayerType.Computer)
-                    ComputerPlayerMakeMove();
-            }
-            // an exception is thrown if the last move ended the game
-            catch (Exception exc)
-            {
-                return;
-            }
 
         }
 
@@ -446,29 +461,33 @@ namespace SOSGame
             boardPainter.DrawBoard();
         }
 
-        private void ComputerPlayerMakeMove()
+        private async void ComputerPlayerMakeMove()
         {
+            if (sosEngine.InGame())
+                await Task.Run(() =>
+                {
+                    ComputerPlayer computerPlayer = (ComputerPlayer)sosEngine.GetCurrentGame().GetCurrentPlayer();
 
-            ComputerPlayer computerPlayer = (ComputerPlayer)sosEngine.GetCurrentGame().GetCurrentPlayer();
+                    // make the move
+                    computerPlayer.ChooseRandomMoveType();
 
-            // make the move
-            computerPlayer.ChooseRandomMoveType();
-            SyncSOSEngine();
-            Thread.Sleep(computerPlayerMoveDecisionTime);
-            computerPlayer.MakeMove();
-            boardPainter.DrawBoard();
-            Thread.Sleep(computerPlayerMoveDecisionTime);
+                    Invoke(new MethodInvoker(delegate { SyncSOSEngine(); }));
+                
+                    computerPlayer.MakeMove();
+                    boardPainter.DrawBoard();
 
 
-            if (!EndGameIfOver())
-            {
-                // if the player of the next turn is a computer, then make a move for them
-                Player nextPlayer = sosEngine.GetCurrentGame().GetCurrentPlayer();
+                    if (!EndGameIfOver())
+                    {
+                        // if the player of the next turn is a computer, then make a move for them
+                        Player nextPlayer = sosEngine.GetCurrentGame().GetCurrentPlayer();
 
-                if (nextPlayer.GetPlayerType() == PlayerType.Computer)
-                    ComputerPlayerMakeMove();
-            }
+                        if (nextPlayer.GetPlayerType() == PlayerType.Computer)
+                            ComputerPlayerMakeMove();
+                    }
 
+                    Invoke(new MethodInvoker(delegate { SyncSOSEngine(); }));
+                });
         }
     }
 }

@@ -56,13 +56,19 @@ namespace SOSLogic
         public bool IsBlueComputer()
         {
             // Check to see if the blue player is a computer
-            return false;
+            if (!InGame())
+                return false;
+            else
+                return currentGame?.GetBluePlayer().GetPlayerType() == PlayerType.Computer ? true : false;
         }
 
         public bool IsRedComputer()
         {
             // Check to see if the red player is a computer
-            return false;
+            if (!InGame())
+                return false;
+            else
+                return currentGame?.GetRedPlayer().GetPlayerType() == PlayerType.Computer ? true : false;
         }
 
         public Game GetPreviousGame()

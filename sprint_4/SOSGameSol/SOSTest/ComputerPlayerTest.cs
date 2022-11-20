@@ -25,5 +25,11 @@ namespace SOSTest
             // UT #5
             Assert.AreEqual(player.GetPlayerType(), PlayerType.Computer);
         }
+
+        [TestMethod]
+        public void TestMakeMove()
+        {
+
+        }
     }
 }

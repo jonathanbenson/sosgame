@@ -41,28 +41,28 @@ namespace SOSLogic
         public override void MakeMove(int row = -1, int col = -1)
         {
             if (game.GetGameMode() == GameMode.Simple)
-                MakeSimpleMove();
+                MakeSimpleMove(CoinFlip.IsHeads(), CoinFlip.IsHeads());
             else if (game.GetGameMode() == GameMode.General)
-                MakeGeneralMove();
+                MakeGeneralMove(CoinFlip.IsHeads());
         }
 
-        private void MakeSimpleMove()
+        private void MakeSimpleMove(bool firstCoinFlip, bool secondCoinFlip)
         {
             List<Move> possibleSOSMoves = game.GetSOSOpportunities();
 
-            if (possibleSOSMoves.Count > 0 && CoinFlip.IsHeads() && CoinFlip.IsHeads())
+            if (possibleSOSMoves.Count > 0 && firstCoinFlip && secondCoinFlip)
                 MakeRandomSOSMove(possibleSOSMoves);
             else
                 MakeRandomMove();
         }
 
-        private void MakeGeneralMove()
+        private void MakeGeneralMove(bool coinFlip)
         {
             List<Move> possibleSOSMoves = game.GetSOSOpportunities();
 
             Debug.WriteLine("something");
 
-            if (possibleSOSMoves.Count > 0)
+            if (possibleSOSMoves.Count > 0 && coinFlip)
                 MakeRandomSOSMove(possibleSOSMoves);
             else
                 MakeRandomMove();
