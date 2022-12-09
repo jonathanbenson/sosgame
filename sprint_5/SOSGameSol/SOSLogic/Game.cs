@@ -56,7 +56,9 @@ namespace SOSLogic
          * It handles the base logic for the SOS game.
          * 
          */
-        
+
+        private bool recordGame;
+
         private int boardSize;
         
         private Player bluePlayer, redPlayer, currentPlayer;
@@ -66,8 +68,10 @@ namespace SOSLogic
 
         private bool isOver;
 
-        public Game(int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
+        public Game(bool recordGame = false, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
         {
+            this.recordGame = recordGame;
+
             // the board size is the number of rows and columns in the board
             // ensure the board size is between the values of 8 and 12
             if (!IsBoardSizeValid(boardSize))
@@ -1058,6 +1062,11 @@ namespace SOSLogic
             }
 
             return emptyCells;
+        }
+
+        public bool GetRecordGame()
+        {
+            return recordGame;
         }
     }
 }

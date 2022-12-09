@@ -16,8 +16,8 @@ namespace SOSLogic
          * If all the cells are filled and no SOS has been created, the game is a draw.
          * 
          */
-        public SimpleGame(int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
-            : base(boardSize, bluePlayerType, redPlayerType)
+        public SimpleGame(bool recordGame, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
+            : base(recordGame, boardSize, bluePlayerType, redPlayerType)
         {
             
         }

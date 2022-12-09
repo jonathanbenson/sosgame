@@ -101,7 +101,7 @@ namespace SOSLogic
                 return currentGame;
         }
 
-        public void StartGame(GameMode gameMode = GameMode.Simple, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
+        public void StartGame(bool recordGame, GameMode gameMode = GameMode.Simple, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
         {
             // start a new game based on the game mode, size of the board, and on the roles of the players
 
@@ -117,11 +117,11 @@ namespace SOSLogic
                 switch (currentGame.GetGameMode())
                 {
                     case GameMode.Simple:
-                        currentGame = new SimpleGame(currentGame.GetBoardSize(), bluePlayerType, redPlayerType);
+                        currentGame = new SimpleGame(recordGame, currentGame.GetBoardSize(), bluePlayerType, redPlayerType);
                         break;
 
                     case GameMode.General:
-                        currentGame = new GeneralGame(currentGame.GetBoardSize(), bluePlayerType, redPlayerType);
+                        currentGame = new GeneralGame(recordGame, currentGame.GetBoardSize(), bluePlayerType, redPlayerType);
                         break;
 
                     default:
@@ -134,11 +134,11 @@ namespace SOSLogic
                 switch (gameMode)
                 {
                     case GameMode.Simple:
-                        currentGame = new SimpleGame(boardSize, bluePlayerType, redPlayerType);
+                        currentGame = new SimpleGame(recordGame, boardSize, bluePlayerType, redPlayerType);
                         break;
 
                     case GameMode.General:
-                        currentGame = new GeneralGame(boardSize, bluePlayerType, redPlayerType);
+                        currentGame = new GeneralGame(recordGame, boardSize, bluePlayerType, redPlayerType);
                         break;
 
                     default:
@@ -156,34 +156,35 @@ namespace SOSLogic
             previousGame = currentGame;
 
             // Write contents to a text file
-            using (StreamWriter writer = new StreamWriter("PreviousGame.txt"))
-            {
-                List<MoveEntry> moveEntries = new List<MoveEntry>();
-
-                foreach (Move move in previousGame?.GetMoves())
+            if (previousGame.GetRecordGame())
+                using (StreamWriter writer = new StreamWriter("PreviousGame.txt"))
                 {
-                    Player player = move.GetPlayer();
+                    List<MoveEntry> moveEntries = new List<MoveEntry>();
 
-                    MoveEntry moveEntry = new MoveEntry
+                    foreach (Move move in previousGame?.GetMoves())
                     {
-                        playerType = player.GetPlayerType() == PlayerType.Human ? "human" : "computer",
-                        color = player.GetColor() == Color.Blue ? "blue" : "red",
-                        moveType = move.GetMoveType() == MoveType.S ? "S" : "O",
-                        row = move.GetRow(),
-                        col = move.GetCol()
-                    };
+                        Player player = move.GetPlayer();
 
-                    moveEntries.Add(moveEntry);
+                        MoveEntry moveEntry = new MoveEntry
+                        {
+                            playerType = player.GetPlayerType() == PlayerType.Human ? "human" : "computer",
+                            color = player.GetColor() == Color.Blue ? "blue" : "red",
+                            moveType = move.GetMoveType() == MoveType.S ? "S" : "O",
+                            row = move.GetRow(),
+                            col = move.GetCol()
+                        };
+
+                        moveEntries.Add(moveEntry);
+                    }
+
+                    string json = JsonSerializer.Serialize(moveEntries, new JsonSerializerOptions { WriteIndented = true });
+
+                    writer.Write(json);
                 }
-
-                string json = JsonSerializer.Serialize(moveEntries, new JsonSerializerOptions { WriteIndented = true });
-
-                writer.Write(json);
-            }
+            else
+                File.Delete("PreviousGame.txt");
 
             currentGame = null;
-
-
 
         }
 

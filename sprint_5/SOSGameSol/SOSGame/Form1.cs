@@ -357,6 +357,8 @@ namespace SOSGame
             
             int boardSize = (int)_boardSizeNum.Value;
 
+            bool recordGame = _recordGameCheckBox.Checked;
+
             // retrieve the desired game mode from the GUI control
             GameMode gameMode = GameMode.Simple;
 
@@ -368,7 +370,7 @@ namespace SOSGame
             PlayerType redPlayerType = _redPlayerComputerRadio.Checked ? PlayerType.Computer : PlayerType.Human;
 
             // create a new game with the desired settings
-            sosEngine.StartGame(gameMode, boardSize, bluePlayerType, redPlayerType);
+            sosEngine.StartGame(recordGame, gameMode, boardSize, bluePlayerType, redPlayerType);
 
             // set the move types of the players
             Game game = sosEngine.GetCurrentGame();
