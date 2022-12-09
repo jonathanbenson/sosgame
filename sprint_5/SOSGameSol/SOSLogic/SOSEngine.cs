@@ -5,9 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Xml.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SOSLogic
 {
+
+    class MoveEntry
+    {
+        public string playerType { get; set; } // human or computer
+        public string color { get; set; } // blue or red
+        public string moveType { get; set; } // S or O
+        public int row { get; set; }
+        public int col { get; set; }
+}
+
     public class SOSEngine
     {
         /*
@@ -142,7 +154,37 @@ namespace SOSLogic
             // TODO: implement me further!
 
             previousGame = currentGame;
+
+            // Write contents to a text file
+            using (StreamWriter writer = new StreamWriter("PreviousGame.txt"))
+            {
+                List<MoveEntry> moveEntries = new List<MoveEntry>();
+
+                foreach (Move move in previousGame?.GetMoves())
+                {
+                    Player player = move.GetPlayer();
+
+                    MoveEntry moveEntry = new MoveEntry
+                    {
+                        playerType = player.GetPlayerType() == PlayerType.Human ? "human" : "computer",
+                        color = player.GetColor() == Color.Blue ? "blue" : "red",
+                        moveType = move.GetMoveType() == MoveType.S ? "S" : "O",
+                        row = move.GetRow(),
+                        col = move.GetCol()
+                    };
+
+                    moveEntries.Add(moveEntry);
+                }
+
+                string json = JsonSerializer.Serialize(moveEntries, new JsonSerializerOptions { WriteIndented = true });
+
+                writer.Write(json);
+            }
+
             currentGame = null;
+
+
+
         }
 
 
