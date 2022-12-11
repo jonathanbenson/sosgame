@@ -30,7 +30,7 @@ namespace SOSTest
         public void TestMakeSimpleMove()
         {
             // create a new simple game with two computer players
-            SimpleGame simpleGame = new SimpleGame(8, PlayerType.Computer, PlayerType.Computer);
+            SimpleGame simpleGame = new SimpleGame(false, 8, PlayerType.Computer, PlayerType.Computer);
 
             while (!simpleGame.IsOver())
             {
@@ -74,7 +74,7 @@ namespace SOSTest
         public void TestMakeGeneralMove()
         {
             // create a new simple game with two computer players
-            GeneralGame generalGame = new GeneralGame(8, PlayerType.Computer, PlayerType.Computer);
+            GeneralGame generalGame = new GeneralGame(false, 8, PlayerType.Computer, PlayerType.Computer);
 
             while (!generalGame.IsOver())
             {

@@ -50,11 +50,11 @@ namespace SOSTest
 
             // the Game constructor should throw an exception if the board size is less than 6
             for (int i = -100; i < boardSizeLowerLimit; ++i)
-                Assert.ThrowsException<ArgumentOutOfRangeException>(() => new SimpleGame(i));
+                Assert.ThrowsException<ArgumentOutOfRangeException>(() => new SimpleGame(false, i));
 
             // the Game constructor should throw an exception if the board size is greater than 12
             for (int i = boardSizeUpperLimit + 1; i < 100; ++i)
-                Assert.ThrowsException<ArgumentOutOfRangeException>(() => new SimpleGame(i));
+                Assert.ThrowsException<ArgumentOutOfRangeException>(() => new SimpleGame(false, i));
             
 
             // AC 1.3 - User does not select a board size
@@ -68,7 +68,7 @@ namespace SOSTest
 
             // the board size of the game should equal the board size passed to the Game constructor
             for (int i = boardSizeLowerLimit; i <= boardSizeUpperLimit; ++i)
-                Assert.AreEqual(new SimpleGame(i).GetBoardSize(), i);
+                Assert.AreEqual(new SimpleGame(false, i).GetBoardSize(), i);
 
         }
 
@@ -85,7 +85,7 @@ namespace SOSTest
                 foreach (MoveType redPlayerMoveType in Enum.GetValues(typeof(MoveType)))
                     for (int boardSize = boardSizeLowerLimit; boardSize <= boardSizeUpperLimit; ++boardSize)
                     {
-                        Game game = new SimpleGame(boardSize);
+                        Game game = new SimpleGame(false, boardSize);
 
                         Color turn = Color.Blue;
 

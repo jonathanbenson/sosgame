@@ -25,7 +25,7 @@ namespace SOSTest
             // AC 2.1 - User attempts to select an invalid game mode
 
             // the StartGame method should throw an exception if the game mode is invalid
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => new SOSEngine().StartGame((GameMode)(-1)));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => new SOSEngine().StartGame(false, (GameMode)(-1)));
             
 
             // AC 2.3 - User does not select a game mode
@@ -40,12 +40,12 @@ namespace SOSTest
 
             // user selects a game mode of simple
             sosEngine = new SOSEngine();
-            sosEngine.StartGame(GameMode.Simple);
+            sosEngine.StartGame(false, GameMode.Simple);
             Assert.AreEqual(sosEngine.GetCurrentGame().GetGameMode(), GameMode.Simple);
             
             // user selects a game mode of general
             sosEngine = new SOSEngine();
-            sosEngine.StartGame(GameMode.General);
+            sosEngine.StartGame(false, GameMode.General);
             Assert.AreEqual(sosEngine.GetCurrentGame().GetGameMode(), GameMode.General);
 
 
@@ -61,7 +61,7 @@ namespace SOSTest
                         // AC 3.2
                         // the new game should start with the desired settings
                         sosEngine = new SOSEngine();
-                        sosEngine.StartGame(gameMode, defaultBoardSize, bluePlayerType, redPlayerType);
+                        sosEngine.StartGame(false, gameMode, defaultBoardSize, bluePlayerType, redPlayerType);
 
                         Assert.AreEqual(sosEngine.GetCurrentGame().GetGameMode(), gameMode);
                         Assert.AreEqual(sosEngine.GetCurrentGame().GetBoardSize(), defaultBoardSize);

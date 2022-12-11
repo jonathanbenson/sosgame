@@ -17,7 +17,7 @@ namespace SOSLogic
          * 
          */
         
-        public GeneralGame(bool recordGame, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
+        public GeneralGame(bool recordGame = false, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
             : base(recordGame, boardSize, bluePlayerType, redPlayerType)
         {
 

@@ -104,7 +104,7 @@ namespace SOSLogic
                 return currentGame;
         }
 
-        public void StartGame(bool recordGame, GameMode gameMode = GameMode.Simple, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
+        public void StartGame(bool recordGame = false, GameMode gameMode = GameMode.Simple, int boardSize = 8, PlayerType bluePlayerType = PlayerType.Human, PlayerType redPlayerType = PlayerType.Human)
         {
             // start a new game based on the game mode, size of the board, and on the roles of the players
 
