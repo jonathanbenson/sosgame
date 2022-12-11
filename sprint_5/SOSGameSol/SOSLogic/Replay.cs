@@ -15,11 +15,13 @@ namespace SOSLogic
 
         public Replay()
         {
+            // Keep track of how far into the replay
             pos = 0;
         }
 
         public void Parse(string fileName)
         {
+            // Parse all the move entry JSON objects from the previous game
             string jsonText = File.ReadAllText(fileName, Encoding.UTF8);
 
             moveEntries = JsonSerializer.Deserialize<List<MoveEntry>>(jsonText);
@@ -27,11 +29,14 @@ namespace SOSLogic
 
         public MoveEntry GetNextMoveEntry()
         {
+            // return the current move entry and advance the position
             return moveEntries[pos++];
         }
 
         public bool AtEnd()
         {
+            // If we are at the last move entry, then return true
+            // else false
             if (pos == moveEntries.Count - 1)
                 return true;
 

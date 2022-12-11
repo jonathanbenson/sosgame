@@ -510,6 +510,7 @@ namespace SOSGame
 
             Replay replay = new Replay();
 
+            // Parse all the moves associated with the previous game
             replay.Parse("PreviousGame.txt");
 
             sosEngine.SetInReplay(true);
@@ -521,6 +522,7 @@ namespace SOSGame
             boardPainter.SetGame(currentGame);
             while (doContinueReplay && !currentGame.IsOver())
             {
+                // Put the next move on the screen
                 await Task.Run(async () =>
                 {
 
@@ -540,6 +542,7 @@ namespace SOSGame
             SyncSOSEngine();
             boardPainter.DrawBoard();
 
+            // End the game and display the game result
             EndGameIfOver(true);
             sosEngine.SetInReplay(false);
 

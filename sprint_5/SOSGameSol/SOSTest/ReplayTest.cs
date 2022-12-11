@@ -18,7 +18,7 @@ namespace SOSLogic.Test
             var replay = new Replay();
             replay.Parse("PreviousGame.txt");
 
-            // Act
+            // AC #7.3 -> User replays game outside of a game with previous game played
             var moveEntry1 = replay.GetNextMoveEntry();
             var moveEntry2 = replay.GetNextMoveEntry();
             var moveEntry3 = replay.GetNextMoveEntry();
