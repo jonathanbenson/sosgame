@@ -11,14 +11,14 @@ using System.Text.Json.Serialization;
 namespace SOSLogic
 {
 
-    class MoveEntry
+    public class MoveEntry
     {
         public string playerType { get; set; } // human or computer
         public string color { get; set; } // blue or red
         public string moveType { get; set; } // S or O
         public int row { get; set; }
         public int col { get; set; }
-}
+    }
 
     public class SOSEngine
     {
@@ -28,12 +28,15 @@ namespace SOSLogic
          */
 
         private Game? previousGame, currentGame;
+        private bool inReplay;
 
         public SOSEngine()
         {
             // the previous and current game do not exist because no game has begun or completed yet.
             previousGame = null;
             currentGame = null;
+
+            inReplay = false;
         }
 
         public bool IsRedTurn()
@@ -62,7 +65,7 @@ namespace SOSLogic
         public bool InReplay()
         {
             // Check to see if the user is watching a replay
-            return false;
+            return inReplay;
         }
 
         public bool IsBlueComputer()
@@ -186,6 +189,16 @@ namespace SOSLogic
 
             currentGame = null;
 
+        }
+
+        public void EndReplay()
+        {
+            currentGame = null;
+        }
+
+        public void SetInReplay(bool inReplay)
+        {
+            this.inReplay = inReplay;
         }
 
 

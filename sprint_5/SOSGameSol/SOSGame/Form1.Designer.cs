@@ -191,6 +191,7 @@
             this._replayButton.TabIndex = 4;
             this._replayButton.Text = "Replay";
             this._replayButton.UseVisualStyleBackColor = true;
+            this._replayButton.Click += new System.EventHandler(this._replayButton_Click);
             // 
             // groupBox2
             // 
@@ -212,6 +213,7 @@
             this._quitReplayButton.TabIndex = 6;
             this._quitReplayButton.Text = "Quit Replay";
             this._quitReplayButton.UseVisualStyleBackColor = true;
+            this._quitReplayButton.Click += new System.EventHandler(this._quitReplayButton_Click);
             // 
             // _bluePlayerGroupBox
             // 

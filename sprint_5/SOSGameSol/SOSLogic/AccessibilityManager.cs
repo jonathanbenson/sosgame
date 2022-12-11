@@ -91,7 +91,7 @@ namespace SOSLogic
             // A method to determine whether the user can watch a replay of the previous game via the replay button
 
             // The user may not watch a replay if a previous game does not exist
-            return File.Exists("PreviousGame.txt") ? IsAccessible(false, true, false, true) : false;
+            return sosEngine.ExistsPreviousGame() ? IsAccessible(false, true, false, true) : false;
         }
 
         public bool IsNewGameButtonAccessible()
@@ -132,7 +132,7 @@ namespace SOSLogic
         public bool IsQuitReplayButtonAccessible()
         {
             // A method to determine whether the user can see the quit replay button
-            return File.Exists("PreviousGame.txt") ? IsAccessible(true, false, true, false) : false;
+            return sosEngine.ExistsPreviousGame() ? IsAccessible(true, false, true, false) : false;
         }
 
         public bool IsCurrentTurnDisplayAccessible()

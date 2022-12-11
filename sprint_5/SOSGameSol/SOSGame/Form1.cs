@@ -21,6 +21,8 @@ namespace SOSGame
         // miliseconds
         long computerPlayerMoveDecisionTime = 1000;
 
+        bool doContinueReplay = true;
+
         public Form1()
         {
             InitializeComponent();
@@ -286,7 +288,7 @@ namespace SOSGame
 
         }
 
-        bool EndGameIfOver()
+        bool EndGameIfOver(bool isReplay = false)
         {
             Game game = sosEngine.GetCurrentGame();
 
@@ -305,8 +307,10 @@ namespace SOSGame
                         MessageBox.Show("Red is the winner!");
                 }
 
-
-                sosEngine.EndGame();
+                if (isReplay)
+                    sosEngine.EndReplay();
+                else
+                    sosEngine.EndGame();
 
                 return true;
             }
@@ -498,6 +502,55 @@ namespace SOSGame
 
                     Invoke(new MethodInvoker(delegate { SyncSOSEngine(); }));
                 });
+        }
+
+        private async void _replayButton_Click(object sender, EventArgs e)
+        {
+            doContinueReplay = true;
+
+            Replay replay = new Replay();
+
+            replay.Parse("PreviousGame.txt");
+
+            sosEngine.SetInReplay(true);
+
+            Game previousGame = sosEngine.GetPreviousGame();
+            sosEngine.StartGame(false, previousGame.GetGameMode(), previousGame.GetBoardSize(), previousGame.GetBluePlayer().GetPlayerType(), previousGame.GetRedPlayer().GetPlayerType());
+            Game currentGame = sosEngine.GetCurrentGame();
+
+            boardPainter.SetGame(currentGame);
+            while (doContinueReplay && !currentGame.IsOver())
+            {
+                await Task.Run(async () =>
+                {
+
+                    Invoke(new MethodInvoker(delegate { boardPainter.DrawBoard(); SyncSOSEngine(); }));
+
+                    await Task.Delay(1000);
+
+                    MoveEntry nextMoveEntry = replay.GetNextMoveEntry();
+
+                    Move nextMove = new Move(currentGame.GetCurrentPlayer(), nextMoveEntry.moveType == "S" ? MoveType.S : MoveType.O, nextMoveEntry.row, nextMoveEntry.col);
+
+                    currentGame.MakeMove(nextMove);
+                });
+
+            }
+
+            SyncSOSEngine();
+            boardPainter.DrawBoard();
+
+            EndGameIfOver(true);
+            sosEngine.SetInReplay(false);
+
+            SyncSOSEngine();
+            boardPainter.DrawBoard();
+
+        }
+
+        private void _quitReplayButton_Click(object sender, EventArgs e)
+        {
+            doContinueReplay = false;
         }
     }
 }
