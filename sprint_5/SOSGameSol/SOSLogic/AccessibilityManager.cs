@@ -42,7 +42,6 @@ namespace SOSLogic
              * Blue S/O Selection                       = 0111
              * Red S/O Selection                        = 1000
              * Game Board (whether a move can be made)  = 1001
-             * Quit Replay Button (stop a replay)       = 1010
              * Current Turn Display                     = 1011
              * Score display                            = 1100
              * 
@@ -55,7 +54,7 @@ namespace SOSLogic
             bool i = sosEngine.IsRedComputer();
 
             // Boolean function generated from the output column of the accessibility truth table
-            return (a && b && !c && !d && e) || (a && b && !c && !d && f) || (a && !b && c && d && f) || (a && !b && c && e) || (a && !b && !c && !e && f && g && !i) || (a && !b && d && !e && f && !g && !h) || (a && !c && !d && !e && f && !i) || (!a && b && !c && d && !e) || (!a && b && d && !e && f && !h) || (!a && !b && !e && !f) || (!a && !d && !e && !f);
+            return (a && b && !c && !d && e) || (a && b && !c && !d && f) || (a && !b && c && d && e) || (a && !b && c && d && f) || (a && !b && !c && !e && f && g && !i) || (a && !b && d && !e && f && !g && !h) || (a && !c && !d && !e && f && !i) || (!a && b && c && d && !e && f && !h) || (!a && !b && !e && !f) || (!a && !c && !e && !f) || (!a && !d && !e && !f);
         }
 
         public bool IsGameModeAccessible()
@@ -91,7 +90,7 @@ namespace SOSLogic
             // A method to determine whether the user can watch a replay of the previous game via the replay button
 
             // The user may not watch a replay if a previous game does not exist
-            return sosEngine.ExistsPreviousGame() ? IsAccessible(false, true, false, true) : false;
+            return File.Exists("PreviousGame.txt") ? IsAccessible(false, true, false, false) : false;
         }
 
         public bool IsNewGameButtonAccessible()
@@ -127,12 +126,6 @@ namespace SOSLogic
             // A method to determine whether the player is able to make a move on the board (ex. place a S or O)
             
             return IsAccessible(true, false, false, true);
-        }
-
-        public bool IsQuitReplayButtonAccessible()
-        {
-            // A method to determine whether the user can see the quit replay button
-            return sosEngine.ExistsPreviousGame() ? IsAccessible(true, false, true, false) : false;
         }
 
         public bool IsCurrentTurnDisplayAccessible()

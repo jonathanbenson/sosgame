@@ -21,8 +21,6 @@ namespace SOSGame
         // miliseconds
         long computerPlayerMoveDecisionTime = 1000;
 
-        bool doContinueReplay = true;
-
         public Form1()
         {
             InitializeComponent();
@@ -129,13 +127,6 @@ namespace SOSGame
                 _redSOGroupBox.Enabled = true;
             else
                 _redSOGroupBox.Enabled = false;
-
-            // if the quit replay button is accessible then make the corresponding control accessible
-            // else make it inaccessible
-            if (accessibilityManager.IsQuitReplayButtonAccessible())
-                _quitReplayButton.Show();
-            else
-                _quitReplayButton.Hide();
 
             if (accessibilityManager.IsBoardAccessible())
                 boardPainter.DrawBoard();
@@ -506,7 +497,6 @@ namespace SOSGame
 
         private async void _replayButton_Click(object sender, EventArgs e)
         {
-            doContinueReplay = true;
 
             Replay replay = new Replay();
 
@@ -520,7 +510,7 @@ namespace SOSGame
             Game currentGame = sosEngine.GetCurrentGame();
 
             boardPainter.SetGame(currentGame);
-            while (doContinueReplay && !currentGame.IsOver())
+            while (!currentGame.IsOver())
             {
                 // Put the next move on the screen
                 await Task.Run(async () =>
@@ -549,11 +539,6 @@ namespace SOSGame
             SyncSOSEngine();
             boardPainter.DrawBoard();
 
-        }
-
-        private void _quitReplayButton_Click(object sender, EventArgs e)
-        {
-            doContinueReplay = false;
         }
     }
 }

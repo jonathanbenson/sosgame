@@ -40,7 +40,6 @@
             this._newGameButton = new System.Windows.Forms.Button();
             this._replayButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this._quitReplayButton = new System.Windows.Forms.Button();
             this._bluePlayerGroupBox = new System.Windows.Forms.GroupBox();
             this._blueScoreLabel = new System.Windows.Forms.Label();
             this._blueScore = new System.Windows.Forms.Label();
@@ -195,7 +194,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this._quitReplayButton);
             this.groupBox2.Controls.Add(this._recordGameCheckBox);
             this.groupBox2.Controls.Add(this._replayButton);
             this.groupBox2.Controls.Add(this._newGameButton);
@@ -204,16 +202,6 @@
             this.groupBox2.Size = new System.Drawing.Size(680, 54);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            // 
-            // _quitReplayButton
-            // 
-            this._quitReplayButton.Location = new System.Drawing.Point(422, 22);
-            this._quitReplayButton.Name = "_quitReplayButton";
-            this._quitReplayButton.Size = new System.Drawing.Size(91, 23);
-            this._quitReplayButton.TabIndex = 6;
-            this._quitReplayButton.Text = "Quit Replay";
-            this._quitReplayButton.UseVisualStyleBackColor = true;
-            this._quitReplayButton.Click += new System.EventHandler(this._quitReplayButton_Click);
             // 
             // _bluePlayerGroupBox
             // 
@@ -470,7 +458,6 @@
         private RadioButton _redPlayerSRadio;
         private RadioButton _redPlayerORadio;
         private Panel boardCanvas;
-        private Button _quitReplayButton;
         private Label _blueScoreLabel;
         private Label _redScoreLabel;
         private LinkLabel _sourceCodeLink;
