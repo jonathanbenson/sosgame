@@ -37,6 +37,9 @@ namespace SOSLogic
             currentGame = null;
 
             inReplay = false;
+
+            // Delete replay file on startup in case in was not deleted after the last session.
+            File.Delete("PreviousGame.txt");
         }
 
         public bool IsRedTurn()
